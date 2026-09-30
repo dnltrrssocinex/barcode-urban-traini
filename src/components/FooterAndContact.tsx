@@ -390,8 +390,7 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
               </span>
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed max-w-xs">
-              Urban training compound engineered for movement, power, and discipline. An athletic
-              identity forged in steel and concrete.
+              Training compound engineered for movement, power, and discipline.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a

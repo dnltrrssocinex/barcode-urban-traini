@@ -45,8 +45,8 @@ export function HeroSection({ onOpenBooking, onOpenShop }: HeroSectionProps) {
           </h1>
 
           <p className="mt-6 sm:mt-8 text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl font-normal leading-relaxed">
-            Barcode is an urban training experience built for people who want to move stronger,
-            train harder, and become more capable.
+            Barcode is a training experience built for people who want to move stronger, train
+            harder, and become more capable.
           </p>
 
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 max-w-md sm:max-w-none">
