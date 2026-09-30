@@ -12,23 +12,22 @@ export function HeroSection({ onOpenBooking, onOpenShop }: HeroSectionProps) {
       id="hero"
       className="relative min-h-[85vh] lg:min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16"
     >
-      {/* Background with Directional Placeholder for Hero Visual */}
-      <div className="absolute inset-0 z-0 bg-secondary/80 flex items-center justify-center overflow-hidden">
-        {/* Subtle grid and dark industrial backdrop */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(218,255,0,0.06)_0%,transparent_70%)]" />
-        <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-background/50" />
+      {/* Background Video Showing Athletic Movement in Industrial Setting */}
+      <div className="absolute inset-0 z-0 bg-background overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={BARCODE_IMAGES.heroVideoPoster}
+          className="w-full h-full object-cover opacity-45 scale-105 filter grayscale contrast-125"
+        >
+          <source src={BARCODE_IMAGES.heroVideo} type="video/mp4" />
+        </video>
 
-        {/* Directional image placeholder badge overlay */}
-        <div className="relative z-10 max-w-xl mx-auto p-6 rounded-sm border border-dashed border-border bg-background/60 backdrop-blur-md text-center">
-          <div className="text-[11px] font-athletic font-bold uppercase tracking-[0.25em] text-volt mb-1">
-            HERO BACKGROUND VISUAL PLACEHOLDER
-          </div>
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            [Direction: Place full-screen hero image or video here — athletic movement inside an
-            urban industrial gym, heavy lifting, strength work, functional barbell motion against
-            concrete walls]
-          </p>
-        </div>
+        {/* Dark industrial radial gradient overlay for high readability */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(218,255,0,0.04)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 bg-linear-to-t from-background via-background/60 to-background/40" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center sm:text-left flex flex-col justify-center">

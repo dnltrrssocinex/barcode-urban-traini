@@ -2,6 +2,10 @@
 export const BARCODE_IMAGES = {
   // Attached user upload logo (latest upload)
   logo: "https://vibe.filesafe.space/1790776132600168681/attachments/4535dfdb-ca2a-488d-a1d8-bafea342682a.png",
+  // High energy looping background video for hero
+  heroVideo: "https://assets.mixkit.co/videos/52079/52079-720p.mp4",
+  heroVideoPoster:
+    "https://vibe.filesafe.space/1790776132600168681/assets/1412fd34-b307-441c-85a6-a825b8be6e35.png",
 };
 
 export const TRAINING_SERVICES = [
@@ -73,8 +77,8 @@ export const APPAREL_PRODUCTS = [
     name: "BARCODE HEAVYWEIGHT OVERSIZED HOODIE",
     subtitle: "500 GSM French Terry Cotton - Concrete Ash",
     price: "$98.00",
-    imagePlaceholderNotice:
-      "Place product photo here: Heavyweight oversized hoodie on urban concrete backdrop or model wearing drop-shoulder hoodie",
+    image:
+      "https://vibe.filesafe.space/1790776132600168681/assets/505abc04-b3b3-442c-ac4e-6892d7e47131.png",
     status: "Best Seller",
     details: "Drop shoulder cut, engineered for gym warmup and urban street transition.",
   },
@@ -83,8 +87,8 @@ export const APPAREL_PRODUCTS = [
     name: "BARCODE ARCHITECTURE OVERSIZED TEE",
     subtitle: "280 GSM Combed Cotton - Off-White & Black",
     price: "$48.00",
-    imagePlaceholderNotice:
-      "Place product photo here: Boxy heavyweight graphic tee on distressed metal or flat lay",
+    image:
+      "https://vibe.filesafe.space/1790776132600168681/assets/1cb09145-b445-4899-a188-87f93024557d.png",
     status: "Limited Batch",
     details: "High-density screenprint, sweat-resistant collar, durable athletic drape.",
   },
@@ -93,8 +97,8 @@ export const APPAREL_PRODUCTS = [
     name: "BARCODE RAW LOGO PULLOVER",
     subtitle: "Heavyweight Double-Knit Cotton - Stealth Black",
     price: "$92.00",
-    imagePlaceholderNotice:
-      "Place product photo here: Matte black crewneck or pullover with tonal silicone Barcode badge",
+    image:
+      "https://vibe.filesafe.space/1790776132600168681/assets/da28dd30-24aa-49e0-be0f-fe4b31b0fc9c.png",
     status: "Core Essential",
     details: "Distressed silicone chest branding with reinforced thumbloops and metal aglets.",
   },
@@ -103,8 +107,8 @@ export const APPAREL_PRODUCTS = [
     name: "BARCODE REVERSIBLE SKULL BEANIE & CAP",
     subtitle: "Moisture-Wicking Heavy Rib - Industrial Charcoal",
     price: "$34.00",
-    imagePlaceholderNotice:
-      "Place product photo here: Ribbed training cap or beanie with embroidered Barcode logo badge",
+    image:
+      "https://vibe.filesafe.space/1790776132600168681/assets/5196374c-87b7-4cad-97c8-07d714c2fd7e.png",
     status: "Restocked",
     details: "Low-profile silhouette, embroidered monochrome barcode badge.",
   },

@@ -1,5 +1,4 @@
-import { Calendar, ChevronRight } from "lucide-react";
-import { TRAINING_SERVICES } from "../lib/data";
+import { Calendar } from "lucide-react";
 
 interface TrainingSectionProps {
   onBookService: (serviceId: string) => void;
@@ -8,77 +7,6 @@ interface TrainingSectionProps {
 export function TrainingSection({ onBookService }: TrainingSectionProps) {
   return (
     <>
-      {/* Training Services */}
-      <section id="training" className="py-24 bg-background relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <span className="w-2.5 h-2.5 bg-volt rounded-full" />
-                <span className="font-athletic text-xs font-bold uppercase tracking-[0.25em] text-volt">
-                  PROGRAMS & DISCIPLINE
-                </span>
-              </div>
-              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-foreground">
-                TRAINING SERVICES
-              </h2>
-            </div>
-            <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
-              Precision coaching tailored for raw power, conditioning velocity, and functional
-              longevity. Book directly into our coaching calendars.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TRAINING_SERVICES.map((svc) => (
-              <div
-                key={svc.id}
-                className="group p-7 rounded-sm bg-card border border-border hover:border-volt/70 transition-all duration-300 flex flex-col justify-between hover:shadow-2xl hover:shadow-volt/5 relative"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-[10px] font-athletic font-black uppercase tracking-widest bg-secondary px-2.5 py-1 text-volt rounded-xs border border-border">
-                      {svc.tag}
-                    </span>
-                    <span className="text-xs font-athletic tracking-wider text-muted-foreground">
-                      {svc.duration}
-                    </span>
-                  </div>
-
-                  <h3 className="font-display text-2xl font-black text-foreground tracking-wide group-hover:text-volt transition-colors">
-                    {svc.name}
-                  </h3>
-                  <div className="text-[11px] font-athletic font-bold uppercase tracking-wider text-muted-foreground mt-0.5 mb-3">
-                    {svc.tagline}
-                  </div>
-
-                  <p className="text-xs text-muted-foreground leading-relaxed">{svc.desc}</p>
-                </div>
-
-                <div className="pt-6 mt-6 border-t border-border/60 flex items-center justify-between">
-                  <div>
-                    <span className="block text-[10px] uppercase font-athletic text-muted-foreground tracking-wider">
-                      INVESTMENT
-                    </span>
-                    <span className="font-athletic text-base font-black text-foreground">
-                      {svc.price}
-                    </span>
-                  </div>
-
-                  <button
-                    onClick={() => onBookService(svc.id)}
-                    className="px-4 py-2.5 rounded-sm bg-volt text-primary-foreground font-athletic font-black text-xs uppercase tracking-wider hover:brightness-110 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer shadow-md shadow-volt/10"
-                  >
-                    <span>BOOK THIS SESSION</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Dedicated Booking Section */}
       <section id="booking" className="py-24 bg-secondary/30 relative border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

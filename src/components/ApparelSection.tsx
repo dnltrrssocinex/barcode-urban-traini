@@ -27,34 +27,26 @@ export function ApparelSection({ onOpenProduct }: ApparelSectionProps) {
           </p>
         </div>
 
-        {/* Products Grid with Directional Image Placeholders */}
+        {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {APPAREL_PRODUCTS.map((prod) => (
             <div
               key={prod.id}
               className="group rounded-sm bg-card border border-border overflow-hidden hover:border-volt/80 transition-all duration-300 flex flex-col justify-between"
             >
-              {/* Image Placeholder with clear direction */}
+              {/* Product Image */}
               <div
-                className="aspect-square bg-secondary/70 relative overflow-hidden cursor-pointer flex flex-col items-center justify-center p-6 text-center border-b border-border/60 hover:bg-secondary transition-colors"
+                className="aspect-square bg-secondary/50 relative overflow-hidden cursor-pointer"
                 onClick={() => onOpenProduct(prod.id)}
               >
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(218,255,0,0.04)_0%,transparent_70%)]" />
-                <span className="absolute top-3 left-3 bg-background/90 backdrop-blur-xs text-volt text-[10px] font-athletic font-black uppercase tracking-wider px-2 py-0.5 border border-border">
+                <img
+                  src={prod.image}
+                  alt={prod.name}
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                />
+                <span className="absolute top-3 left-3 bg-background/90 backdrop-blur-xs text-volt text-[10px] font-athletic font-black uppercase tracking-wider px-2 py-0.5 border border-border z-10">
                   {prod.status}
                 </span>
-
-                <div className="relative z-10 space-y-2">
-                  <div className="w-10 h-10 rounded-sm bg-background/80 border border-border flex items-center justify-center mx-auto text-volt">
-                    <ShoppingBag className="w-5 h-5" />
-                  </div>
-                  <div className="text-[10px] font-athletic font-bold uppercase tracking-wider text-volt">
-                    PRODUCT IMAGE PLACEHOLDER
-                  </div>
-                  <p className="text-[11px] text-muted-foreground leading-tight max-w-[210px] mx-auto">
-                    {prod.imagePlaceholderNotice}
-                  </p>
-                </div>
               </div>
 
               <div className="p-5 flex flex-col justify-between grow">
