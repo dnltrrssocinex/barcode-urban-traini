@@ -73,44 +73,48 @@ export const TRAINING_SERVICES = [
 
 export const APPAREL_PRODUCTS = [
   {
-    id: "heavyweight-barcode-hoodie",
-    name: "BARCODE HEAVYWEIGHT OVERSIZED HOODIE",
-    subtitle: "500 GSM French Terry Cotton - Concrete Ash",
+    id: "camo-work-jacket",
+    name: "BARCODE CAMO WORK JACKET",
+    subtitle: "Heavy-Duty Camo Twill with Custom Barcode Embroidery",
+    price: "$120.00",
+    image:
+      "https://vibe.filesafe.space/1790776132600168681/attachments/6ed14fd3-9b45-425f-aabb-591c308c7b3b.jpg",
+    status: "Featured Drop",
+    details:
+      "Durable military-grade cotton twill, chest patch pockets, custom Barcode graphic emblems.",
+  },
+  {
+    id: "tech-tracksuit-set",
+    name: "BARCODE COBALT TECH TRACKSUIT",
+    subtitle: "Full Zip Windbreaker & Athletic Track Pants Set",
+    price: "$145.00",
+    image:
+      "https://vibe.filesafe.space/1790776132600168681/attachments/3e5ccc24-d0d2-4027-a2fa-b6bdd6827d49.png",
+    status: "Best Seller",
+    details:
+      "High-mobility weather-resistant technical fabric, bold cobalt paneling, embroidered Barcode script.",
+  },
+  {
+    id: "crimson-zip-sweatset",
+    name: "BARCODE CRIMSON EMBROIDERED SET",
+    subtitle: "Heavyweight French Terry Zip Hoodie & Sweatpants",
+    price: "$130.00",
+    image:
+      "https://vibe.filesafe.space/1790776132600168681/attachments/17350115-1a84-4f38-b9eb-ea2684224ef3.jpg",
+    status: "Limited Batch",
+    details:
+      "500 GSM heavyweight brushed cotton, tonal textured embroidery, metal zipper hardware.",
+  },
+  {
+    id: "1982-gradient-hoodie",
+    name: "BARCODE 1982 GRADIENT HOODIE",
+    subtitle: "Vintage Dip-Dyed Purple Heavyweight Fleece",
     price: "$98.00",
     image:
-      "https://vibe.filesafe.space/1790776132600168681/assets/505abc04-b3b3-442c-ac4e-6892d7e47131.png",
-    status: "Best Seller",
-    details: "Drop shoulder cut, engineered for gym warmup and urban street transition.",
-  },
-  {
-    id: "signature-urban-tee",
-    name: "BARCODE ARCHITECTURE OVERSIZED TEE",
-    subtitle: "280 GSM Combed Cotton - Off-White & Black",
-    price: "$48.00",
-    image:
-      "https://vibe.filesafe.space/1790776132600168681/assets/1cb09145-b445-4899-a188-87f93024557d.png",
-    status: "Limited Batch",
-    details: "High-density screenprint, sweat-resistant collar, durable athletic drape.",
-  },
-  {
-    id: "barcode-stealth-pullover",
-    name: "BARCODE RAW LOGO PULLOVER",
-    subtitle: "Heavyweight Double-Knit Cotton - Stealth Black",
-    price: "$92.00",
-    image:
-      "https://vibe.filesafe.space/1790776132600168681/assets/da28dd30-24aa-49e0-be0f-fe4b31b0fc9c.png",
+      "https://vibe.filesafe.space/1790776132600168681/attachments/613e4235-5ad7-487a-8865-9c90415b7272.jpg",
     status: "Core Essential",
-    details: "Distressed silicone chest branding with reinforced thumbloops and metal aglets.",
-  },
-  {
-    id: "concrete-training-cap",
-    name: "BARCODE REVERSIBLE SKULL BEANIE & CAP",
-    subtitle: "Moisture-Wicking Heavy Rib - Industrial Charcoal",
-    price: "$34.00",
-    image:
-      "https://vibe.filesafe.space/1790776132600168681/assets/5196374c-87b7-4cad-97c8-07d714c2fd7e.png",
-    status: "Restocked",
-    details: "Low-profile silhouette, embroidered monochrome barcode badge.",
+    details:
+      "Ombré fade wash, distressed chenille felt patch with Barcode barcode script, oversized athletic cut.",
   },
 ];
 

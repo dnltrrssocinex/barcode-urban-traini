@@ -65,14 +65,15 @@ export function ShopModal({ isOpen, onClose, selectedProductId }: ShopModalProps
                     : "border-border bg-card/60 hover:border-border/80"
                 }`}
               >
-                <div className="aspect-square bg-secondary/80 rounded-xs overflow-hidden mb-1 flex flex-col items-center justify-center p-1 text-center">
-                  <ShoppingBag className="w-4 h-4 text-volt mx-auto" />
-                  <span className="text-[8px] font-athletic uppercase text-muted-foreground mt-0.5">
-                    Placeholder
-                  </span>
+                <div className="aspect-square bg-secondary/80 rounded-xs overflow-hidden mb-1">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-full object-cover object-center"
+                  />
                 </div>
                 <div className="text-[10px] font-athletic uppercase font-bold text-foreground truncate">
-                  {item.name.split(" ")[1] || item.name}
+                  {item.name.replace("BARCODE ", "")}
                 </div>
                 <div className="text-[9px] text-volt font-bold">{item.price}</div>
               </button>
@@ -80,17 +81,16 @@ export function ShopModal({ isOpen, onClose, selectedProductId }: ShopModalProps
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
-            {/* Left Product Image Placeholder */}
-            <div className="sm:col-span-6 aspect-square rounded-sm bg-secondary/80 border border-border flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
-              <div className="w-12 h-12 rounded-sm bg-background border border-border flex items-center justify-center mx-auto text-volt mb-3">
-                <ShoppingBag className="w-6 h-6" />
-              </div>
-              <div className="text-xs font-athletic font-bold uppercase tracking-wider text-volt mb-1">
-                PRODUCT VISUAL
-              </div>
-              <p className="text-[11px] text-muted-foreground leading-snug">
-                {currentItem.imagePlaceholderNotice}
-              </p>
+            {/* Left Product Image */}
+            <div className="sm:col-span-6 aspect-square rounded-sm bg-secondary/80 border border-border overflow-hidden relative">
+              <img
+                src={currentItem.image}
+                alt={currentItem.name}
+                className="w-full h-full object-cover object-center"
+              />
+              <span className="absolute top-3 left-3 bg-background/90 backdrop-blur-xs text-volt text-[10px] font-athletic font-black uppercase tracking-wider px-2 py-0.5 border border-border z-10">
+                {currentItem.status}
+              </span>
             </div>
 
             {/* Right Details */}
