@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { GYM_DETAILS, TRAINING_SERVICES, BARCODE_IMAGES } from "../lib/data";
 import { postTrackingEvent, CRM_CONFIG } from "../lib/tracking";
+import { Reveal } from "./Reveal";
 
 interface ContactSectionProps {
   onBookClick: (serviceId?: string) => void;
@@ -95,23 +96,40 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-secondary/80 border border-border">
-            <span className="w-2 h-2 bg-volt rounded-full" />
-            <span className="text-[10px] font-athletic font-bold uppercase tracking-[0.25em] text-volt">
-              MAKE YOUR MOVE
-            </span>
-          </div>
+          <Reveal variant="up" as="div">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-secondary/80 border border-border">
+              <span className="w-2 h-2 bg-volt rounded-full" />
+              <span className="text-[10px] font-athletic font-bold uppercase tracking-[0.25em] text-volt">
+                MAKE YOUR MOVE
+              </span>
+            </div>
+          </Reveal>
 
-          <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-foreground uppercase leading-[0.92]">
+          <Reveal
+            variant="blur"
+            delay={100}
+            as="h2"
+            className="font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-foreground uppercase leading-[0.92]"
+          >
             YOU DON’T NEED ANOTHER GYM MEMBERSHIP. <br />
             <span className="text-volt">YOU NEED A PLACE TO TRAIN.</span>
-          </h2>
+          </Reveal>
 
-          <p className="text-base sm:text-xl text-muted-foreground max-w-xl mx-auto font-normal leading-relaxed">
+          <Reveal
+            variant="up"
+            delay={200}
+            as="p"
+            className="text-base sm:text-xl text-muted-foreground max-w-xl mx-auto font-normal leading-relaxed"
+          >
             Come experience Barcode.
-          </p>
+          </Reveal>
 
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Reveal
+            variant="up"
+            delay={280}
+            as="div"
+            className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
             <button
               onClick={() => onBookClick()}
               className="w-full sm:w-auto px-8 py-4 rounded-sm bg-volt text-primary-foreground font-athletic font-black text-sm uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2 shadow-xl shadow-volt/25 cursor-pointer"
@@ -126,7 +144,7 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
               <span>EXPLORE TRAINING</span>
               <ArrowRight className="w-4 h-4 text-volt" />
             </a>
-          </div>
+          </Reveal>
         </div>
       </section>
 

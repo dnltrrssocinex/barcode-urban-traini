@@ -9,6 +9,7 @@ import { CommunityAndFounder } from "../components/CommunityAndFounder";
 import { ContactSection, Footer } from "../components/FooterAndContact";
 import { BookingModal } from "../components/BookingModal";
 import { ShopModal } from "../components/ShopModal";
+import { MarqueeBand } from "../components/MarqueeBand";
 import { BARCODE_IMAGES } from "../lib/data";
 
 export const Route = createFileRoute("/")({
@@ -64,6 +65,8 @@ function Index() {
       />
 
       <IntroSection />
+
+      <MarqueeBand />
 
       {/* Apparel and Gear moved above Training Services as requested */}
       <ApparelSection onOpenProduct={(id) => openShopWithProduct(id)} />

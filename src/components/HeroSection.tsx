@@ -14,16 +14,18 @@ export function HeroSection({ onOpenBooking, onOpenShop }: HeroSectionProps) {
     >
       {/* Background Video Showing Athletic Movement in Industrial Setting */}
       <div className="absolute inset-0 z-0 bg-background overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster={BARCODE_IMAGES.heroVideoPoster}
-          className="w-full h-full object-cover opacity-45 scale-105 filter grayscale contrast-125"
-        >
-          <source src={BARCODE_IMAGES.heroVideo} type="video/mp4" />
-        </video>
+        <div className="absolute inset-0 animate-slow-zoom">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster={BARCODE_IMAGES.heroVideoPoster}
+            className="w-full h-full object-cover opacity-45 filter grayscale contrast-125"
+          >
+            <source src={BARCODE_IMAGES.heroVideo} type="video/mp4" />
+          </video>
+        </div>
 
         {/* Dark industrial radial gradient overlay for high readability */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(218,255,0,0.04)_0%,transparent_70%)]" />
@@ -32,24 +34,36 @@ export function HeroSection({ onOpenBooking, onOpenShop }: HeroSectionProps) {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center sm:text-left flex flex-col justify-center">
         <div className="max-w-4xl">
-          <div className="inline-flex items-center gap-3 px-3.5 py-1.5 rounded-xs bg-secondary/80 border border-border backdrop-blur-md mb-6">
-            <span className="barcode-stripes h-3 w-8 text-volt inline-block" />
+          <div
+            className="inline-flex items-center gap-3 px-3.5 py-1.5 rounded-xs bg-secondary/80 border border-border backdrop-blur-md mb-6 hero-rise"
+            style={{ animationDelay: "0.1s" }}
+          >
+            <span className="barcode-stripes h-3 w-8 text-volt inline-block animate-scan" />
             <span className="text-[11px] font-athletic font-bold uppercase tracking-[0.25em] text-volt">
               CONCRETE TRAINING GROUND
             </span>
           </div>
 
-          <h1 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight leading-[0.88] text-foreground uppercase">
+          <h1
+            className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight leading-[0.88] text-foreground uppercase hero-rise"
+            style={{ animationDelay: "0.25s" }}
+          >
             TRAIN <br />
             <span className="text-volt">DIFFERENT.</span>
           </h1>
 
-          <p className="mt-6 sm:mt-8 text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl font-normal leading-relaxed">
+          <p
+            className="mt-6 sm:mt-8 text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl font-normal leading-relaxed hero-rise"
+            style={{ animationDelay: "0.45s" }}
+          >
             Barcode is a training experience built for people who want to move stronger, train
             harder, and become more capable.
           </p>
 
-          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 max-w-md sm:max-w-none">
+          <div
+            className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 max-w-md sm:max-w-none hero-rise"
+            style={{ animationDelay: "0.65s" }}
+          >
             <button
               onClick={onOpenBooking}
               className="px-8 py-4 rounded-sm bg-volt text-primary-foreground font-athletic font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl shadow-volt/25 hover:brightness-110 active:scale-95 transition-all cursor-pointer"
@@ -68,6 +82,15 @@ export function HeroSection({ onOpenBooking, onOpenShop }: HeroSectionProps) {
             </button>
           </div>
         </div>
+      </div>
+
+      {/* Scroll cue */}
+      <div
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden sm:flex flex-col items-center gap-2 text-muted-foreground hero-rise"
+        style={{ animationDelay: "0.9s" }}
+      >
+        <span className="text-[10px] font-athletic uppercase tracking-[0.3em]">Scroll</span>
+        <span className="w-px h-10 bg-linear-to-b from-volt to-transparent animate-pulse" />
       </div>
     </section>
   );
