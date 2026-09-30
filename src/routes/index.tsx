@@ -3,8 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "../components/Navbar";
 import { HeroSection } from "../components/HeroSection";
 import { IntroSection } from "../components/IntroSection";
-import { TrainingSection } from "../components/TrainingSection";
 import { ApparelSection } from "../components/ApparelSection";
+import { TrainingSection } from "../components/TrainingSection";
 import { CommunityAndFounder } from "../components/CommunityAndFounder";
 import { ContactSection, Footer } from "../components/FooterAndContact";
 import { BookingModal } from "../components/BookingModal";
@@ -27,9 +27,9 @@ export const Route = createFileRoute("/")({
           "Urban training compound built for people who want to move stronger, train harder, and become more capable.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: BARCODE_IMAGES.heroLifting },
+      { property: "og:image", content: BARCODE_IMAGES.logo },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: BARCODE_IMAGES.heroLifting },
+      { name: "twitter:image", content: BARCODE_IMAGES.logo },
     ],
   }),
   component: Index,
@@ -65,9 +65,10 @@ function Index() {
 
       <IntroSection />
 
-      <TrainingSection onBookService={(id) => openBookingWithService(id)} />
-
+      {/* Apparel and Gear moved above Training Services as requested */}
       <ApparelSection onOpenProduct={(id) => openShopWithProduct(id)} />
+
+      <TrainingSection onBookService={(id) => openBookingWithService(id)} />
 
       <CommunityAndFounder onBookClick={(id) => openBookingWithService(id)} />
 

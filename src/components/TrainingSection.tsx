@@ -1,4 +1,4 @@
-import { ChevronRight, Zap, Dumbbell, Target, Shield, Calendar } from "lucide-react";
+import { Calendar, ChevronRight } from "lucide-react";
 import { TRAINING_SERVICES } from "../lib/data";
 
 interface TrainingSectionProps {
@@ -25,7 +25,7 @@ export function TrainingSection({ onBookService }: TrainingSectionProps) {
             </div>
             <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
               Precision coaching tailored for raw power, conditioning velocity, and functional
-              longevity. Book directly into our calendar pipeline.
+              longevity. Book directly into our coaching calendars.
             </p>
           </div>
 
@@ -79,82 +79,8 @@ export function TrainingSection({ onBookService }: TrainingSectionProps) {
         </div>
       </section>
 
-      {/* Featured Training Experience: 4 Core Principles */}
-      <section
-        id="experience"
-        className="py-24 bg-secondary/40 relative border-y border-border overflow-hidden"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-16">
-            <span className="text-xs font-athletic font-bold uppercase tracking-[0.25em] text-volt block mb-2">
-              THE PHILOSOPHY
-            </span>
-            <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-foreground leading-[0.92]">
-              THIS IS NOT A <br />
-              <span className="text-stroke-gritty">TREADMILL-AND-TV</span> <br />
-              GYM.
-            </h2>
-            <p className="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Barcode is built around movement, strength, performance, accountability, and real
-              training. We operate on four ironclad tenets:
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                num: "01",
-                phrase: "MOVE WITH PURPOSE",
-                desc: "Every rep has intention. We prioritize biomechanical integrity before stacking heavy iron.",
-                icon: Zap,
-              },
-              {
-                num: "02",
-                phrase: "BUILD REAL STRENGTH",
-                desc: "Force that carries into everyday life, physical trades, and athletic competition.",
-                icon: Dumbbell,
-              },
-              {
-                num: "03",
-                phrase: "TRAIN WITH INTENTION",
-                desc: "No wandering from machine to machine with a phone in your hand. Structured execution.",
-                icon: Target,
-              },
-              {
-                num: "04",
-                phrase: "SHOW UP STRONGER",
-                desc: "Consistency over ego. The compound demands showing up on the days you don't feel like it.",
-                icon: Shield,
-              },
-            ].map((p) => {
-              const Icon = p.icon;
-              return (
-                <div
-                  key={p.num}
-                  className="p-8 rounded-sm bg-card border border-border relative group hover:border-volt/80 transition-all duration-300"
-                >
-                  <div className="flex justify-between items-start mb-6">
-                    <span className="font-display text-4xl font-black text-muted-foreground/30 group-hover:text-volt/60 transition-colors">
-                      {p.num}
-                    </span>
-                    <div className="w-10 h-10 rounded-sm bg-secondary flex items-center justify-center text-volt border border-border">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                  </div>
-
-                  <h3 className="font-display text-2xl font-black text-foreground tracking-wide group-hover:text-volt transition-colors">
-                    {p.phrase}
-                  </h3>
-                  <p className="mt-3 text-xs text-muted-foreground leading-relaxed">{p.desc}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* Dedicated Booking Section */}
-      <section id="booking" className="py-24 bg-background relative">
+      <section id="booking" className="py-24 bg-secondary/30 relative border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 mb-3">

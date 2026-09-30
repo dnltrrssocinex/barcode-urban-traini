@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X, ExternalLink, ShoppingBag, ShieldCheck, Truck, RefreshCw } from "lucide-react";
+import { X, ShoppingBag, Check, ShieldCheck, ArrowRight } from "lucide-react";
 import { APPAREL_PRODUCTS, BARCODE_IMAGES } from "../lib/data";
 
 interface ShopModalProps {
@@ -9,37 +9,40 @@ interface ShopModalProps {
 }
 
 export function ShopModal({ isOpen, onClose, selectedProductId }: ShopModalProps) {
-  const [activeProduct, setActiveProduct] = useState(selectedProductId || APPAREL_PRODUCTS[0].id);
+  const [selectedProduct, setSelectedProduct] = useState(
+    selectedProductId || APPAREL_PRODUCTS[0]?.id || "",
+  );
   const [selectedSize, setSelectedSize] = useState("L");
-  const [addedNotice, setAddedNotice] = useState(false);
+  const [added, setAdded] = useState(false);
 
   if (!isOpen) return null;
 
-  const product = APPAREL_PRODUCTS.find((p) => p.id === activeProduct) || APPAREL_PRODUCTS[0];
+  const currentItem = APPAREL_PRODUCTS.find((p) => p.id === selectedProduct) || APPAREL_PRODUCTS[0];
 
-  const handleCheckout = () => {
-    setAddedNotice(true);
+  const handleCheckoutRedirect = () => {
+    setAdded(true);
     setTimeout(() => {
-      // Connect to online checkout / shop cart flow
-      window.open("https://backend.leadconnectorhq.com", "_blank");
-    }, 700);
+      setAdded(false);
+      onClose();
+    }, 1500);
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/85 backdrop-blur-md animate-in fade-in duration-200">
       <div
-        className="relative w-full max-w-3xl bg-card border border-border shadow-2xl rounded-sm max-h-[92vh] flex flex-col overflow-hidden"
+        className="relative w-full max-w-2xl bg-card border border-border shadow-2xl rounded-sm max-h-[92vh] flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-secondary/40">
-          <div>
-            <span className="text-[11px] font-athletic tracking-[0.2em] uppercase font-bold text-volt">
-              BARCODE ATHLETICS STORE
+          <div className="flex items-center gap-3">
+            <img
+              src={BARCODE_IMAGES.logo}
+              alt="Barcode"
+              className="h-6 w-auto object-contain invert brightness-200"
+            />
+            <span className="font-display text-xl font-black tracking-wider text-foreground">
+              BARCODE APPAREL & GEAR
             </span>
-            <h2 className="font-display text-2xl text-foreground font-black tracking-wider">
-              WEAR THE WORK
-            </h2>
           </div>
           <button
             onClick={onClose}
@@ -49,109 +52,110 @@ export function ShopModal({ isOpen, onClose, selectedProductId }: ShopModalProps
           </button>
         </div>
 
-        {/* Body */}
-        <div className="p-6 overflow-y-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Image Preview */}
-            <div className="space-y-3">
-              <div className="aspect-square bg-secondary/50 rounded-sm border border-border overflow-hidden relative group">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                />
-                <span className="absolute top-3 left-3 bg-background/90 text-volt text-[11px] font-athletic font-black uppercase tracking-wider px-2.5 py-1 border border-border">
-                  {product.status}
-                </span>
-              </div>
+        <div className="p-6 overflow-y-auto space-y-6">
+          {/* Product Selector Ribbon */}
+          <div className="grid grid-cols-4 gap-2">
+            {APPAREL_PRODUCTS.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setSelectedProduct(item.id)}
+                className={`p-2 rounded-sm border text-left transition-all ${
+                  item.id === currentItem.id
+                    ? "border-volt bg-secondary"
+                    : "border-border bg-card/60 hover:border-border/80"
+                }`}
+              >
+                <div className="aspect-square bg-secondary/80 rounded-xs overflow-hidden mb-1 flex flex-col items-center justify-center p-1 text-center">
+                  <ShoppingBag className="w-4 h-4 text-volt mx-auto" />
+                  <span className="text-[8px] font-athletic uppercase text-muted-foreground mt-0.5">
+                    Placeholder
+                  </span>
+                </div>
+                <div className="text-[10px] font-athletic uppercase font-bold text-foreground truncate">
+                  {item.name.split(" ")[1] || item.name}
+                </div>
+                <div className="text-[9px] text-volt font-bold">{item.price}</div>
+              </button>
+            ))}
+          </div>
 
-              {/* Thumbnails */}
-              <div className="grid grid-cols-4 gap-2">
-                {APPAREL_PRODUCTS.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => setActiveProduct(item.id)}
-                    className={`aspect-square rounded-sm border overflow-hidden transition-all ${
-                      activeProduct === item.id
-                        ? "border-volt ring-1 ring-volt"
-                        : "border-border opacity-60 hover:opacity-100"
-                    }`}
-                  >
-                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-                  </button>
-                ))}
+          <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+            {/* Left Product Image Placeholder */}
+            <div className="sm:col-span-6 aspect-square rounded-sm bg-secondary/80 border border-border flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
+              <div className="w-12 h-12 rounded-sm bg-background border border-border flex items-center justify-center mx-auto text-volt mb-3">
+                <ShoppingBag className="w-6 h-6" />
               </div>
+              <div className="text-xs font-athletic font-bold uppercase tracking-wider text-volt mb-1">
+                PRODUCT VISUAL
+              </div>
+              <p className="text-[11px] text-muted-foreground leading-snug">
+                {currentItem.imagePlaceholderNotice}
+              </p>
             </div>
 
-            {/* Product details */}
-            <div className="flex flex-col justify-between space-y-5">
+            {/* Right Details */}
+            <div className="sm:col-span-6 space-y-4">
               <div>
-                <h3 className="font-display text-2xl font-black text-foreground tracking-wide leading-tight">
-                  {product.name}
+                <span className="inline-block text-[10px] font-athletic uppercase tracking-widest text-volt font-bold bg-secondary px-2 py-0.5 border border-border mb-2">
+                  {currentItem.status}
+                </span>
+                <h3 className="font-display text-2xl font-black text-foreground tracking-wide">
+                  {currentItem.name}
                 </h3>
-                <p className="text-xs text-muted-foreground mt-1">{product.subtitle}</p>
-                <div className="mt-3 font-athletic text-2xl font-black text-volt">
-                  {product.price}
-                </div>
-
-                <div className="mt-4 pt-4 border-t border-border/60 text-xs text-muted-foreground leading-relaxed">
-                  {product.details}
-                </div>
-
-                {/* Sizing */}
-                <div className="mt-5">
-                  <div className="flex justify-between text-xs uppercase font-athletic font-bold text-muted-foreground mb-2">
-                    <span>SELECT SIZE</span>
-                    <span className="text-volt cursor-pointer hover:underline">
-                      SIZE GUIDE (ATHLETIC FIT)
-                    </span>
-                  </div>
-                  <div className="flex gap-2">
-                    {["S", "M", "L", "XL", "2XL"].map((sz) => (
-                      <button
-                        key={sz}
-                        type="button"
-                        onClick={() => setSelectedSize(sz)}
-                        className={`w-11 h-11 rounded-sm border font-athletic font-bold text-sm transition-all ${
-                          selectedSize === sz
-                            ? "border-volt bg-volt text-primary-foreground font-black"
-                            : "border-border bg-secondary/40 text-foreground hover:border-border/90"
-                        }`}
-                      >
-                        {sz}
-                      </button>
-                    ))}
-                  </div>
+                <p className="text-xs text-muted-foreground mt-1">{currentItem.subtitle}</p>
+                <div className="font-athletic text-2xl font-black text-volt mt-2">
+                  {currentItem.price}
                 </div>
               </div>
 
-              {/* Checkout actions */}
-              <div className="space-y-3 pt-4 border-t border-border">
-                <button
-                  onClick={handleCheckout}
-                  className="w-full py-4 rounded-sm bg-volt text-primary-foreground font-athletic font-black text-sm uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2 shadow-lg shadow-volt/20 cursor-pointer"
-                >
-                  <ShoppingBag className="w-4 h-4" />
-                  <span>
-                    {addedNotice ? "CONNECTING TO SHOP CART..." : `CHECKOUT — ${product.price}`}
-                  </span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </button>
-
-                <div className="grid grid-cols-3 gap-2 text-[10px] text-muted-foreground text-center pt-1">
-                  <div className="flex flex-col items-center gap-1">
-                    <Truck className="w-3.5 h-3.5 text-volt" />
-                    <span>Free Shipping $120+</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-volt" />
-                    <span>Heavyweight Durability</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <RefreshCw className="w-3.5 h-3.5 text-volt" />
-                    <span>Pick up at Gym</span>
-                  </div>
+              {/* Size Select */}
+              <div>
+                <label className="block text-[11px] uppercase font-athletic tracking-widest font-bold text-muted-foreground mb-2">
+                  SELECT SIZE
+                </label>
+                <div className="flex gap-2">
+                  {["S", "M", "L", "XL", "2XL"].map((sz) => (
+                    <button
+                      key={sz}
+                      type="button"
+                      onClick={() => setSelectedSize(sz)}
+                      className={`w-10 h-10 rounded-sm font-athletic font-black text-xs transition-all ${
+                        selectedSize === sz
+                          ? "bg-volt text-primary-foreground shadow-md shadow-volt/20"
+                          : "bg-secondary text-foreground hover:bg-secondary/80 border border-border"
+                      }`}
+                    >
+                      {sz}
+                    </button>
+                  ))}
                 </div>
+              </div>
+
+              <div className="text-xs text-muted-foreground pt-1 border-t border-border/60">
+                {currentItem.details}
+              </div>
+
+              <button
+                onClick={handleCheckoutRedirect}
+                className="w-full py-3.5 rounded-sm bg-volt text-primary-foreground font-athletic font-black text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-volt/20"
+              >
+                {added ? (
+                  <>
+                    <Check className="w-4 h-4" />
+                    <span>ITEM ADDED TO CART</span>
+                  </>
+                ) : (
+                  <>
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>ADD TO BAG & PROCEED TO CHECKOUT</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
+              </button>
+
+              <div className="flex items-center justify-center gap-2 text-[10px] uppercase font-athletic tracking-wider text-muted-foreground">
+                <ShieldCheck className="w-3.5 h-3.5 text-volt" />
+                <span>Heavyweight French Terry Cotton | Free Size Exchange</span>
               </div>
             </div>
           </div>
