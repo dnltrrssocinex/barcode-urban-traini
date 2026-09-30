@@ -1,23 +1,93 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { Navbar } from "../components/Navbar";
+import { HeroSection } from "../components/HeroSection";
+import { IntroSection } from "../components/IntroSection";
+import { TrainingSection } from "../components/TrainingSection";
+import { ApparelSection } from "../components/ApparelSection";
+import { CommunityAndFounder } from "../components/CommunityAndFounder";
+import { ContactSection, Footer } from "../components/FooterAndContact";
+import { BookingModal } from "../components/BookingModal";
+import { ShopModal } from "../components/ShopModal";
+import { BARCODE_IMAGES } from "../lib/data";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "BARCODE — Urban Gym & Athletic Apparel" },
+      {
+        name: "description",
+        content:
+          "Barcode is an urban training compound engineered for real movement, strength, performance, and street athletic culture. Book your session or shop the collection.",
+      },
+      { property: "og:title", content: "BARCODE — Urban Gym & Athletic Apparel" },
+      {
+        property: "og:description",
+        content:
+          "Urban training compound built for people who want to move stronger, train harder, and become more capable.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: BARCODE_IMAGES.heroLifting },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: BARCODE_IMAGES.heroLifting },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [selectedServiceId, setSelectedServiceId] = useState<string | undefined>();
+  const [shopOpen, setShopOpen] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState<string | undefined>();
+
+  const openBookingWithService = (id?: string) => {
+    setSelectedServiceId(id);
+    setBookingOpen(true);
+  };
+
+  const openShopWithProduct = (id?: string) => {
+    setSelectedProductId(id);
+    setShopOpen(true);
+  };
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-vibe-blank-page-placeholder="REMOVE_THIS"
-        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHJ4PSIyNCIgZmlsbD0iI2YxZWZlNyIvPjxwYXRoIGQ9Ik0xMDAgNjR2NzJNNjQgMTAwaDcyIiBzdHJva2U9IiNjOWM0YjUiIHN0cm9rZS13aWR0aD0iOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+"
-        alt="Your app will live here!"
+    <div className="min-h-screen bg-background text-foreground selection:bg-volt selection:text-primary-foreground font-sans bg-concrete-grain">
+      <Navbar
+        onOpenBooking={() => openBookingWithService()}
+        onOpenShop={() => openShopWithProduct()}
+      />
+
+      <HeroSection
+        onOpenBooking={() => openBookingWithService()}
+        onOpenShop={() => openShopWithProduct()}
+      />
+
+      <IntroSection />
+
+      <TrainingSection onBookService={(id) => openBookingWithService(id)} />
+
+      <ApparelSection onOpenProduct={(id) => openShopWithProduct(id)} />
+
+      <CommunityAndFounder onBookClick={(id) => openBookingWithService(id)} />
+
+      <ContactSection onBookClick={(svc) => openBookingWithService(svc)} />
+
+      <Footer
+        onBookClick={() => openBookingWithService()}
+        onShopClick={() => openShopWithProduct()}
+      />
+
+      <BookingModal
+        isOpen={bookingOpen}
+        onClose={() => setBookingOpen(false)}
+        initialServiceId={selectedServiceId}
+      />
+
+      <ShopModal
+        isOpen={shopOpen}
+        onClose={() => setShopOpen(false)}
+        selectedProductId={selectedProductId}
       />
     </div>
   );
