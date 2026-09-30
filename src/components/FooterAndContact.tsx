@@ -147,8 +147,8 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
                   LOCATION DETAILS
                 </h2>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                  Our urban compound is located in Philadelphia. Drop in during training hours or
-                  schedule an assessment session.
+                  Our compound is located in Philadelphia. Drop in during training hours or schedule
+                  an assessment session.
                 </p>
               </div>
 
