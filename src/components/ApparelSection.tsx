@@ -28,8 +28,7 @@ export function ApparelSection({ onOpenProduct }: ApparelSectionProps) {
             as="p"
             className="text-sm text-muted-foreground max-w-md leading-relaxed"
           >
-            Training doesn’t stop when you leave the gym. Barcode apparel brings the same energy,
-            discipline, and identity into the street.
+            Barcode apparel brings the same energy, discipline, and identity into the street.
           </Reveal>
         </div>
 

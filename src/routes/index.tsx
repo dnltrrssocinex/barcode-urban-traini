@@ -2,7 +2,6 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "../components/Navbar";
 import { HeroSection } from "../components/HeroSection";
-import { IntroSection } from "../components/IntroSection";
 import { ApparelSection } from "../components/ApparelSection";
 import { TrainingSection } from "../components/TrainingSection";
 import { CommunityAndFounder } from "../components/CommunityAndFounder";
@@ -63,8 +62,6 @@ function Index() {
         onOpenBooking={() => openBookingWithService()}
         onOpenShop={() => openShopWithProduct()}
       />
-
-      <IntroSection />
 
       <MarqueeBand />
 
