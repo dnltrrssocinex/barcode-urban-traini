@@ -1,6 +1,7 @@
-import { Sparkles, Calendar, Check } from "lucide-react";
+import { Calendar, Check } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { useCountUp } from "../hooks/useCountUp";
+import { BARCODE_IMAGES } from "../lib/data";
 
 interface CommunityAndFounderProps {
   onBookClick: (serviceId?: string) => void;
@@ -65,23 +66,15 @@ export function CommunityAndFounder({ onBookClick }: CommunityAndFounderProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Coach Photo Placeholder */}
             <Reveal variant="left" className="lg:col-span-5 relative order-2 lg:order-1" as="div">
-              <div className="relative aspect-3/4 rounded-sm overflow-hidden border border-border bg-secondary/70 flex flex-col items-center justify-center p-8 text-center">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(220,38,38,0.07)_0%,transparent_70%)]" />
-
-                <div className="relative z-10 max-w-xs space-y-4">
-                  <div className="w-14 h-14 rounded-sm bg-background/80 border border-border flex items-center justify-center mx-auto text-volt shadow-lg">
-                    <Sparkles className="w-7 h-7" />
-                  </div>
-                  <div className="text-xs font-athletic font-bold uppercase tracking-[0.25em] text-volt">
-                    COACH PHOTO PLACEHOLDER
-                  </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    [Direction: Place high-resolution portrait or active coaching photo here — Head
-                    Coach / Founder inside the gym wearing Barcode athletic gear, confident,
-                    athletic, real coaching stance]
-                  </p>
-                </div>
-
+              <div className="relative aspect-3/4 rounded-sm overflow-hidden border border-border bg-secondary">
+                <video
+                  src={BARCODE_IMAGES.coachVideo}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
                 <div className="absolute bottom-4 left-4 right-4 bg-background/90 backdrop-blur-xs p-3 rounded-xs border border-border text-left">
                   <div className="font-display text-lg font-black text-foreground">RAFEEQ</div>
                   <div className="text-[11px] font-athletic uppercase tracking-wider text-volt font-bold">
