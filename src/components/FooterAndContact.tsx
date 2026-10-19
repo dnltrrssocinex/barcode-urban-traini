@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { MapPin, Clock, ArrowRight, Instagram, Youtube, Twitter, Calendar } from "lucide-react";
 import { GYM_DETAILS, BARCODE_IMAGES } from "../lib/data";
 import { Reveal } from "./Reveal";
@@ -7,6 +8,20 @@ interface ContactSectionProps {
 }
 
 export function ContactSection({ onBookClick }: ContactSectionProps) {
+  // Load the form embed script once on mount. It scans for the inline form
+  // iframe below and auto-resizes it to the form's full content height so the
+  // entire form is visible without an internal scrollbar.
+  useEffect(() => {
+    const scriptId = "ghl-form-embed-js";
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement("script");
+      script.id = scriptId;
+      script.src = "https://mylinks.businesstechlab.com/js/form_embed.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
   return (
     <>
       {/* Full-width dramatic CTA Banner */}
@@ -142,12 +157,18 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
                 </div>
 
                 <div
-                  className="w-full overflow-hidden rounded-sm bg-secondary/30 border border-border/60"
+                  className="w-full rounded-sm bg-secondary/30 border border-border/60"
                   style={{ minHeight: 879 }}
                 >
                   <iframe
                     src="https://mylinks.businesstechlab.com/widget/form/NSRrO1bfeBiBEDc0FnMB"
-                    style={{ width: "100%", height: "100%", border: "none", borderRadius: 4 }}
+                    style={{
+                      width: "100%",
+                      height: 879,
+                      border: "none",
+                      borderRadius: 4,
+                      display: "block",
+                    }}
                     id="inline-NSRrO1bfeBiBEDc0FnMB"
                     data-layout='{"id":"INLINE"}'
                     data-trigger-type="alwaysShow"
@@ -163,7 +184,7 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
                     data-cookie-consent="true"
                     data-cookie-consent-provider="auto"
                     title="Contact Us"
-                    className="w-full"
+                    scrolling="no"
                   />
                 </div>
               </div>
