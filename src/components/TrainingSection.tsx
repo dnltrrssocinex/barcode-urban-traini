@@ -20,20 +20,6 @@ const BOOKING_CARDS = [
     time: "50 Min High Adrenaline",
     highlight: "Max 6 Lifters Per Coach",
   },
-  {
-    id: "fitness-assessment",
-    title: "ASSESSMENT / CONSULT",
-    type: "Baseline Benchmark",
-    time: "45 Min Movement Audit",
-    highlight: "Mandatory for New Lifters",
-  },
-  {
-    id: "specialty-session",
-    title: "SPECIALTY SESSION",
-    type: "Olympic / Combat",
-    time: "90 Min Deep Dive",
-    highlight: "Barbell & Conditioning Focus",
-  },
 ];
 
 export function TrainingSection({ onBookService }: TrainingSectionProps) {
@@ -58,15 +44,6 @@ export function TrainingSection({ onBookService }: TrainingSectionProps) {
               className="font-display text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-foreground"
             >
               YOUR NEXT SESSION STARTS HERE
-            </Reveal>
-            <Reveal
-              variant="up"
-              delay={160}
-              as="p"
-              className="mt-4 text-sm text-muted-foreground leading-relaxed"
-            >
-              Direct access into our coaching calendars. Pick your training lane below to lock in
-              your assessment or session.
             </Reveal>
           </div>
 
