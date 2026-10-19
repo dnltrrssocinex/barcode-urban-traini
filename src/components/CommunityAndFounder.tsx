@@ -33,10 +33,7 @@ export function CommunityAndFounder({ onBookClick }: CommunityAndFounderProps) {
                   />
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 bg-background/90 backdrop-blur-xs p-3 rounded-xs border border-border text-left z-10">
-                  <div className="font-display text-lg font-black text-foreground">RAFEEQ</div>
-                  <div className="text-[11px] font-athletic uppercase tracking-wider text-volt font-bold">
-                    FOUNDER & HEAD OF PERFORMANCE
-                  </div>
+                  <div className="font-display text-lg font-black text-foreground">COACH RAFIQ</div>
                 </div>
               </div>
             </Reveal>
