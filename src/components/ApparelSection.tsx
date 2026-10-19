@@ -19,7 +19,7 @@ export function ApparelSection({ onOpenProduct }: ApparelSectionProps) {
               </span>
             </div>
             <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-foreground">
-              WEAR THE WORK
+              CONCRETE BOUTIQUE
             </h2>
           </Reveal>
           <Reveal
