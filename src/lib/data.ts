@@ -2,8 +2,8 @@
 export const BARCODE_IMAGES = {
   // Attached user upload logo (latest upload)
   logo: "https://vibe.filesafe.space/1790776132600168681/attachments/4535dfdb-ca2a-488d-a1d8-bafea342682a.png",
-  // High energy looping background video for hero
-  heroVideo: "https://assets.mixkit.co/videos/52079/52079-720p.mp4",
+  // High energy looping background video for hero (user-provided training footage)
+  heroVideo: "https://stream.adilo.com/adilo-encoding/AI6SSPPPZGRoOnEJ/zVNMdh74/1080p.mp4",
   heroVideoPoster:
     "https://vibe.filesafe.space/1790776132600168681/assets/1412fd34-b307-441c-85a6-a825b8be6e35.png",
 };
