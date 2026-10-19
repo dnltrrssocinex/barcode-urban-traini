@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { MapPin, Clock, ArrowRight, Instagram, Youtube, Twitter, Calendar } from "lucide-react";
+import { MapPin, Clock, Instagram, Youtube, Twitter, Calendar } from "lucide-react";
 import { GYM_DETAILS, BARCODE_IMAGES } from "../lib/data";
 import { Reveal } from "./Reveal";
 
@@ -73,13 +73,6 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
               <Calendar className="w-4 h-4" />
               <span>BOOK YOUR FIRST SESSION</span>
             </button>
-            <a
-              href="#training"
-              className="w-full sm:w-auto px-8 py-4 rounded-sm border border-border hover:border-volt/80 bg-secondary/70 hover:bg-secondary text-foreground font-athletic font-bold text-sm uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-all"
-            >
-              <span>EXPLORE TRAINING</span>
-              <ArrowRight className="w-4 h-4 text-volt" />
-            </a>
           </Reveal>
         </div>
       </section>
