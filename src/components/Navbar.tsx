@@ -39,19 +39,14 @@ export function Navbar({ onOpenBooking, onOpenShop }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Brand Logo */}
         <a href="#hero" className="flex items-center gap-3 group">
+          <span className="font-display text-2xl sm:text-3xl font-black tracking-wider text-foreground leading-none">
+            BARCODE
+          </span>
           <img
             src={BARCODE_IMAGES.logo}
             alt="Barcode"
             className="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105 invert brightness-200"
           />
-          <div className="flex flex-col">
-            <span className="font-display text-2xl sm:text-3xl font-black tracking-wider text-foreground leading-none">
-              BARCODE
-            </span>
-            <span className="text-[9px] sm:text-[10px] font-athletic font-bold uppercase tracking-[0.3em] text-volt leading-none mt-1">
-              The Concrete Boutique
-            </span>
-          </div>
         </a>
 
         {/* Desktop Nav */}

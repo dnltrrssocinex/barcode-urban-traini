@@ -383,19 +383,14 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
           {/* Brand Info with updated attached logo */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
+              <span className="font-display text-2xl font-black tracking-wider text-foreground leading-none">
+                BARCODE
+              </span>
               <img
                 src={BARCODE_IMAGES.logo}
                 alt="Barcode"
                 className="h-9 w-auto object-contain invert brightness-200"
               />
-              <div className="flex flex-col">
-                <span className="font-display text-2xl font-black tracking-wider text-foreground leading-none">
-                  BARCODE
-                </span>
-                <span className="text-[10px] font-athletic font-bold uppercase tracking-[0.3em] text-volt leading-none mt-1">
-                  The Concrete Boutique
-                </span>
-              </div>
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed max-w-xs">
               Training compound engineered for movement, power, and discipline.
@@ -522,19 +517,8 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground font-athletic">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-muted-foreground font-athletic">
           <div>© {new Date().getFullYear()} BARCODE. ALL RIGHTS RESERVED.</div>
-          <div className="flex items-center gap-6 uppercase tracking-wider text-[11px]">
-            <a href="#privacy" className="hover:text-foreground">
-              Privacy Policy
-            </a>
-            <a href="#terms" className="hover:text-foreground">
-              Terms of Training
-            </a>
-            <a href="#liability" className="hover:text-foreground">
-              Liability Waiver
-            </a>
-          </div>
         </div>
       </div>
     </footer>
