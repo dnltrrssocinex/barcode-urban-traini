@@ -1,4 +1,4 @@
-import { Calendar, Check } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { BARCODE_IMAGES } from "../lib/data";
 
@@ -43,15 +43,6 @@ export function CommunityAndFounder({ onBookClick }: CommunityAndFounderProps) {
 
             {/* Coach Info */}
             <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
-              <Reveal variant="right" as="div">
-                <div className="inline-flex items-center gap-2">
-                  <span className="w-2 h-2 bg-volt rounded-full" />
-                  <span className="font-athletic text-xs font-bold uppercase tracking-[0.25em] text-volt">
-                    LEADERSHIP & RIGOR
-                  </span>
-                </div>
-              </Reveal>
-
               <Reveal
                 variant="right"
                 delay={80}
@@ -68,32 +59,11 @@ export function CommunityAndFounder({ onBookClick }: CommunityAndFounderProps) {
                 as="p"
                 className="text-base text-muted-foreground leading-relaxed"
               >
-                "Barcode was born out of frustration with sterile commercial gyms full of glowing
-                phone screens and machine circuits that isolate rather than strengthen. I built
-                Barcode for those who desire real movement mechanics, honest accountability, and an
-                unforgiving standard of work."
-              </Reveal>
-
-              <Reveal variant="up" delay={220} as="div" className="space-y-3 pt-2">
-                <div className="text-xs font-athletic uppercase tracking-widest text-foreground font-bold">
-                  CREDENTIALS & SPECIALIZATIONS
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-muted-foreground">
-                  {[
-                    "CSCS — Certified Strength & Conditioning Specialist",
-                    "USA Weightlifting (USAW) Level 2 Coach",
-                    "FRC Movement Specialist (Functional Range Conditioning)",
-                    "10+ Years Coaching Competitive Athletes & Everyday Movers",
-                  ].map((cert) => (
-                    <div
-                      key={cert}
-                      className="flex items-start gap-2.5 p-2.5 rounded-xs bg-secondary/50 border border-border"
-                    >
-                      <Check className="w-4 h-4 text-volt shrink-0 mt-0.5" />
-                      <span>{cert}</span>
-                    </div>
-                  ))}
-                </div>
+                For Rafiq, Barcode is about more than working out. It's about breaking out of the
+                boxes people put you in, pushing past what others think you can do, and raising the
+                bar for yourself. He built his strength on the pull-up bar, and now he's using what
+                he's learned through fitness and life to help others get stronger, stay focused, and
+                push beyond their own limits.
               </Reveal>
 
               <Reveal
