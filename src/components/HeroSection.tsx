@@ -56,8 +56,7 @@ export function HeroSection({ onOpenBooking, onOpenShop }: HeroSectionProps) {
             className="mt-6 sm:mt-8 text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl font-normal leading-relaxed hero-rise"
             style={{ animationDelay: "0.45s" }}
           >
-            Barcode is a training experience built for people who want to move stronger, train
-            harder, and become more capable.
+            Barcode is a training experience built for people who are determined to raise the bar.
           </p>
 
           <div
