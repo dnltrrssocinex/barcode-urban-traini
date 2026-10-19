@@ -1,65 +1,14 @@
 import { Calendar, Check } from "lucide-react";
 import { Reveal } from "./Reveal";
-import { useCountUp } from "../hooks/useCountUp";
 import { BARCODE_IMAGES } from "../lib/data";
 
 interface CommunityAndFounderProps {
   onBookClick: (serviceId?: string) => void;
 }
 
-const STATS = [
-  { end: 500, suffix: "+", label: "WORKOUTS COMPLETED", desc: "Logged under our coaching watch" },
-  { end: 100, suffix: "+", label: "MEMBERS TRAINED", desc: "Committed everyday movers" },
-  { end: 5, suffix: "+", label: "TRAINING PROGRAMS", desc: "Structured progression lanes" },
-  { end: 1, suffix: "", label: "COMMUNITY", desc: "United by iron and discipline" },
-];
-
-function StatCard({
-  end,
-  suffix,
-  label,
-  desc,
-}: {
-  end: number;
-  suffix: string;
-  label: string;
-  desc: string;
-}) {
-  const { ref, display } = useCountUp({ end, suffix });
-  return (
-    <div
-      ref={ref}
-      className="p-6 rounded-sm bg-card border border-border flex flex-col justify-between hover:border-volt/60 transition-colors"
-    >
-      <div>
-        <div className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-volt tracking-tight">
-          {display}
-        </div>
-        <div className="mt-2 font-athletic text-xs font-black uppercase tracking-wider text-foreground">
-          {label}
-        </div>
-      </div>
-      <p className="mt-2 text-[11px] text-muted-foreground">{desc}</p>
-    </div>
-  );
-}
-
 export function CommunityAndFounder({ onBookClick }: CommunityAndFounderProps) {
   return (
     <>
-      {/* Animated Live Stats Section */}
-      <section className="py-20 bg-background relative border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            {STATS.map((item, i) => (
-              <Reveal key={item.label} variant="scale" delay={i * 100} as="div" className="h-full">
-                <StatCard {...item} />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Founder / Coach Section with Directional Image Placeholder */}
       <section className="py-24 bg-card/30 relative border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
