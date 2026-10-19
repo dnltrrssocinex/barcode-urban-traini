@@ -164,10 +164,6 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
                 <h2 className="font-display text-4xl sm:text-5xl font-black text-foreground tracking-tight">
                   LOCATION DETAILS
                 </h2>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                  Our compound is located in Philadelphia. Drop in during training hours or schedule
-                  an assessment session.
-                </p>
               </div>
 
               {/* Location Card without phone or email */}
@@ -178,7 +174,7 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
                   </div>
                   <div>
                     <div className="text-[10px] uppercase font-athletic font-bold tracking-wider text-muted-foreground">
-                      FACILITY ADDRESS
+                      ADDRESS
                     </div>
                     <div className="text-sm font-bold text-foreground mt-0.5">
                       {GYM_DETAILS.address}

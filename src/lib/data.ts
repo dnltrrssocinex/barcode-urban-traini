@@ -122,9 +122,5 @@ export const APPAREL_PRODUCTS = [
 
 export const GYM_DETAILS = {
   address: "Container Village, 4862 Parkside Avenue, Philadelphia PA",
-  hours: [
-    { days: "Monday – Friday", time: "5:00 AM – 10:00 PM" },
-    { days: "Saturday", time: "6:30 AM – 8:00 PM" },
-    { days: "Sunday", time: "8:00 AM – 6:00 PM (Open Gym & Recovery)" },
-  ],
+  hours: [{ days: "Wednesday – Sunday", time: "10:00 AM – 8:00 PM" }],
 };
