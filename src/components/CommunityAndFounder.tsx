@@ -66,16 +66,24 @@ export function CommunityAndFounder({ onBookClick }: CommunityAndFounderProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Coach Photo Placeholder */}
             <Reveal variant="left" className="lg:col-span-5 relative order-2 lg:order-1" as="div">
-              <div className="relative aspect-3/4 rounded-sm overflow-hidden border border-border bg-secondary">
-                <video
-                  src={BARCODE_IMAGES.coachVideo}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div className="absolute bottom-4 left-4 right-4 bg-background/90 backdrop-blur-xs p-3 rounded-xs border border-border text-left">
+              <div className="relative rounded-sm overflow-hidden border border-border bg-secondary">
+                <div className="relative w-full" style={{ paddingTop: "150%" }}>
+                  <iframe
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                    }}
+                    src="https://adilo.bigcommand.com/watch/KVsVMjq4"
+                    frameBorder={0}
+                    allow="fullscreen"
+                    scrolling="no"
+                    title="Barcode coach training footage"
+                  />
+                </div>
+                <div className="absolute bottom-4 left-4 right-4 bg-background/90 backdrop-blur-xs p-3 rounded-xs border border-border text-left z-10">
                   <div className="font-display text-lg font-black text-foreground">RAFEEQ</div>
                   <div className="text-[11px] font-athletic uppercase tracking-wider text-volt font-bold">
                     FOUNDER & HEAD OF PERFORMANCE
