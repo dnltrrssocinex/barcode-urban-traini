@@ -206,17 +206,6 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
                   </div>
                 </div>
               </div>
-
-              {/* Interactive Map Visual Placeholder */}
-              <div className="relative aspect-16/9 rounded-sm overflow-hidden border border-border bg-secondary flex flex-col items-center justify-center p-6 text-center">
-                <div className="relative z-10 text-center space-y-2">
-                  <MapPin className="w-6 h-6 text-volt mx-auto" />
-                  <div className="font-athletic text-xs font-bold uppercase tracking-widest text-foreground">
-                    PHILADELPHIA COMPOUND MAP
-                  </div>
-                  <div className="text-xs text-muted-foreground">{GYM_DETAILS.address}</div>
-                </div>
-              </div>
             </div>
 
             {/* Direct Contact Form Column */}
