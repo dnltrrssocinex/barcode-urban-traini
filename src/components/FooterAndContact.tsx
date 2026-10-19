@@ -1,16 +1,5 @@
-import { useState } from "react";
-import {
-  MapPin,
-  Clock,
-  ArrowRight,
-  Instagram,
-  Youtube,
-  Twitter,
-  Calendar,
-  CheckCircle,
-} from "lucide-react";
-import { GYM_DETAILS, TRAINING_SERVICES, BARCODE_IMAGES } from "../lib/data";
-import { postTrackingEvent, CRM_CONFIG } from "../lib/tracking";
+import { MapPin, Clock, ArrowRight, Instagram, Youtube, Twitter, Calendar } from "lucide-react";
+import { GYM_DETAILS, BARCODE_IMAGES } from "../lib/data";
 import { Reveal } from "./Reveal";
 
 interface ContactSectionProps {
@@ -18,74 +7,6 @@ interface ContactSectionProps {
 }
 
 export function ContactSection({ onBookClick }: ContactSectionProps) {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    interest: "Personal Training",
-    service: "Personal Training",
-    message: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    const trackingPayload = {
-      type: "external_form_submission",
-      timestamp: Date.now(),
-      formId: "barcode-contact-inquiry",
-      formData: {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        service_interest: `${formData.interest} - ${formData.service}`,
-        message: formData.message,
-      },
-      formLabels: {
-        name: "Full Name",
-        email: "Email Address",
-        phone: "Phone Number",
-        service_interest: "Selected Training Service",
-        message: "Message",
-      },
-      url: window.location.href,
-      title: document.title,
-      path: window.location.pathname,
-      userAgent: navigator.userAgent,
-      trackingId: CRM_CONFIG.trackingId,
-      locationId: CRM_CONFIG.locationId,
-      projectId: CRM_CONFIG.projectId,
-      sessionId: crypto.randomUUID(),
-      properties: {
-        deviceType: /Mobile|Android|iPhone/i.test(navigator.userAgent) ? "mobile" : "desktop",
-        source: "ai_studio",
-        projectId: CRM_CONFIG.projectId,
-        formName: "Barcode Contact Inquiry",
-      },
-    };
-
-    postTrackingEvent(trackingPayload, {
-      customFields: {
-        [CRM_CONFIG.customFields.preferredService]: {
-          value: formData.service,
-          label: "Preferred Training Service",
-        },
-        [CRM_CONFIG.customFields.interestAreas]: {
-          value: formData.interest,
-          label: "Interest Areas",
-        },
-      },
-    });
-
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 600);
-  };
-
   return (
     <>
       {/* Full-width dramatic CTA Banner */}
@@ -111,7 +32,7 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
             as="h2"
             className="font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-foreground uppercase leading-[0.92]"
           >
-            YOU DON’T NEED ANOTHER GYM MEMBERSHIP. <br />
+            YOU DON'T NEED ANOTHER GYM MEMBERSHIP. <br />
             <span className="text-volt">YOU NEED A PLACE TO TRAIN.</span>
           </Reveal>
 
@@ -204,9 +125,9 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
               </div>
             </div>
 
-            {/* Direct Contact Form Column */}
+            {/* Native Form Embed Column */}
             <div className="lg:col-span-7">
-              <div className="p-8 sm:p-10 rounded-sm bg-card border border-border shadow-xl">
+              <div className="p-6 sm:p-8 rounded-sm bg-card border border-border shadow-xl">
                 <div className="mb-6">
                   <div className="text-[10px] font-athletic uppercase tracking-[0.2em] text-volt font-bold">
                     GET IN TOUCH
@@ -220,147 +141,31 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
                   </p>
                 </div>
 
-                {submitted ? (
-                  <div className="py-12 text-center space-y-4">
-                    <div className="w-14 h-14 rounded-full bg-volt/20 text-volt mx-auto flex items-center justify-center border border-volt/40">
-                      <CheckCircle className="w-7 h-7" />
-                    </div>
-                    <h4 className="font-display text-2xl font-black text-foreground">
-                      MESSAGE TRANSMITTED
-                    </h4>
-                    <p className="text-sm text-muted-foreground max-w-sm mx-auto">
-                      Thank you. We have received your inquiry. A coach will review your information
-                      and follow up shortly.
-                    </p>
-                    <button
-                      onClick={() => {
-                        setSubmitted(false);
-                        setFormData({
-                          name: "",
-                          email: "",
-                          phone: "",
-                          interest: "Personal Training",
-                          service: "Personal Training",
-                          message: "",
-                        });
-                      }}
-                      className="px-5 py-2 rounded-sm bg-secondary border border-border text-xs uppercase font-athletic font-bold hover:border-volt"
-                    >
-                      SEND ANOTHER MESSAGE
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-[11px] font-athletic uppercase font-bold tracking-wider text-muted-foreground mb-1.5">
-                          YOUR NAME *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="Marcus Vance"
-                          className="w-full px-3.5 py-2.5 rounded-sm bg-secondary/50 border border-border focus:border-volt focus:outline-none text-sm text-foreground"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-[11px] font-athletic uppercase font-bold tracking-wider text-muted-foreground mb-1.5">
-                          EMAIL ADDRESS *
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="marcus@example.com"
-                          className="w-full px-3.5 py-2.5 rounded-sm bg-secondary/50 border border-border focus:border-volt focus:outline-none text-sm text-foreground"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-athletic uppercase font-bold tracking-wider text-muted-foreground mb-1.5">
-                        PHONE NUMBER *
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="(215) 555-0199"
-                        className="w-full px-3.5 py-2.5 rounded-sm bg-secondary/50 border border-border focus:border-volt focus:outline-none text-sm text-foreground"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-[11px] font-athletic uppercase font-bold tracking-wider text-muted-foreground mb-1.5">
-                          WHAT ARE YOU INTERESTED IN?
-                        </label>
-                        <select
-                          value={formData.interest}
-                          onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
-                          className="w-full px-3.5 py-2.5 rounded-sm bg-secondary/80 border border-border focus:border-volt focus:outline-none text-sm text-foreground"
-                        >
-                          <option value="Personal Training">Personal Training</option>
-                          <option value="Small Group Squads">Small Group Squads</option>
-                          <option value="Strength & Conditioning">Strength & Conditioning</option>
-                          <option value="Athletic Assessment">Athletic Assessment</option>
-                          <option value="Barcode Apparel Drop">Barcode Apparel Drop</option>
-                          <option value="Other Inquiry">Other Inquiry</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-[11px] font-athletic uppercase font-bold tracking-wider text-muted-foreground mb-1.5">
-                          PREFERRED TRAINING SERVICE
-                        </label>
-                        <select
-                          value={formData.service}
-                          onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                          className="w-full px-3.5 py-2.5 rounded-sm bg-secondary/80 border border-border focus:border-volt focus:outline-none text-sm text-foreground"
-                        >
-                          {TRAINING_SERVICES.map((s) => (
-                            <option key={s.id} value={s.name}>
-                              {s.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-athletic uppercase font-bold tracking-wider text-muted-foreground mb-1.5">
-                        MESSAGE / TRAINING GOALS
-                      </label>
-                      <textarea
-                        rows={3}
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        placeholder="Tell us about your background, training history, and goals..."
-                        className="w-full px-3.5 py-2.5 rounded-sm bg-secondary/50 border border-border focus:border-volt focus:outline-none text-sm text-foreground resize-none"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full py-4 rounded-sm bg-volt text-primary-foreground font-athletic font-black text-sm uppercase tracking-widest hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-volt/20 disabled:opacity-50"
-                    >
-                      {loading ? (
-                        <span>TRANSMITTING...</span>
-                      ) : (
-                        <>
-                          <span>SUBMIT INQUIRY</span>
-                          <ArrowRight className="w-4 h-4" />
-                        </>
-                      )}
-                    </button>
-                  </form>
-                )}
+                <div
+                  className="w-full overflow-hidden rounded-sm bg-secondary/30 border border-border/60"
+                  style={{ minHeight: 879 }}
+                >
+                  <iframe
+                    src="https://mylinks.businesstechlab.com/widget/form/NSRrO1bfeBiBEDc0FnMB"
+                    style={{ width: "100%", height: "100%", border: "none", borderRadius: 4 }}
+                    id="inline-NSRrO1bfeBiBEDc0FnMB"
+                    data-layout='{"id":"INLINE"}'
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Contact Us"
+                    data-height="879"
+                    data-layout-iframe-id="inline-NSRrO1bfeBiBEDc0FnMB"
+                    data-form-id="NSRrO1bfeBiBEDc0FnMB"
+                    data-cookie-consent="true"
+                    data-cookie-consent-provider="auto"
+                    title="Contact Us"
+                    className="w-full"
+                  />
+                </div>
               </div>
             </div>
           </div>
