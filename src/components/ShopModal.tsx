@@ -18,7 +18,8 @@ export function ShopModal({ isOpen, onClose, selectedProductId }: ShopModalProps
   if (!isOpen) return null;
 
   const currentItem =
-    APPAREL_PRODUCTS.find((p) => p.id === selectedProduct) ?? APPAREL_PRODUCTS[0]!;
+    APPAREL_PRODUCTS.find((p) => p.id === selectedProduct) ??
+    (APPAREL_PRODUCTS[0] as (typeof APPAREL_PRODUCTS)[number]);
 
   const handleCheckoutRedirect = () => {
     setAdded(true);

@@ -85,13 +85,13 @@ function Index() {
       <BookingModal
         isOpen={bookingOpen}
         onClose={() => setBookingOpen(false)}
-        initialServiceId={selectedServiceId}
+        initialServiceId={selectedServiceId === undefined ? undefined : selectedServiceId}
       />
 
       <ShopModal
         isOpen={shopOpen}
         onClose={() => setShopOpen(false)}
-        selectedProductId={selectedProductId}
+        selectedProductId={selectedProductId === undefined ? undefined : selectedProductId}
       />
     </div>
   );

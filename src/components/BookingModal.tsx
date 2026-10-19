@@ -42,7 +42,8 @@ export function BookingModal({ isOpen, onClose, initialServiceId }: BookingModal
   if (!isOpen) return null;
 
   const currentService =
-    TRAINING_SERVICES.find((s) => s.id === selectedService) ?? TRAINING_SERVICES[0]!;
+    TRAINING_SERVICES.find((s) => s.id === selectedService) ??
+    (TRAINING_SERVICES[0] as (typeof TRAINING_SERVICES)[number]);
 
   const timeSlots = [
     "06:00 AM",
