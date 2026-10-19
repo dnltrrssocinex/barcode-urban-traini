@@ -441,14 +441,6 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
                 </a>
               </li>
               <li>
-                <a
-                  href="#training"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Training
-                </a>
-              </li>
-              <li>
                 <button
                   onClick={onBookClick}
                   className="text-muted-foreground hover:text-foreground transition-colors text-left"
@@ -463,22 +455,6 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
                 >
                   Shop
                 </button>
-              </li>
-              <li>
-                <a
-                  href="#about"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Contact
-                </a>
               </li>
             </ul>
           </div>
