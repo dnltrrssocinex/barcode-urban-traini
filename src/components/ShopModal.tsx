@@ -5,7 +5,7 @@ import { APPAREL_PRODUCTS, BARCODE_IMAGES } from "../lib/data";
 interface ShopModalProps {
   isOpen: boolean;
   onClose: () => void;
-  selectedProductId?: string;
+  selectedProductId?: string | undefined;
 }
 
 export function ShopModal({ isOpen, onClose, selectedProductId }: ShopModalProps) {
@@ -17,7 +17,8 @@ export function ShopModal({ isOpen, onClose, selectedProductId }: ShopModalProps
 
   if (!isOpen) return null;
 
-  const currentItem = APPAREL_PRODUCTS.find((p) => p.id === selectedProduct) || APPAREL_PRODUCTS[0];
+  const currentItem =
+    APPAREL_PRODUCTS.find((p) => p.id === selectedProduct) ?? APPAREL_PRODUCTS[0]!;
 
   const handleCheckoutRedirect = () => {
     setAdded(true);

@@ -28,7 +28,7 @@ export function HeroSection({ onOpenBooking, onOpenShop }: HeroSectionProps) {
         </div>
 
         {/* Dark industrial radial gradient overlay for high readability */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(218,255,0,0.04)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.05)_0%,transparent_70%)]" />
         <div className="absolute inset-0 bg-linear-to-t from-background via-background/60 to-background/40" />
       </div>
 

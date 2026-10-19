@@ -16,12 +16,12 @@ import { postTrackingEvent, CRM_CONFIG } from "../lib/tracking";
 interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
-  initialServiceId?: string;
+  initialServiceId?: string | undefined;
 }
 
 export function BookingModal({ isOpen, onClose, initialServiceId }: BookingModalProps) {
   const [selectedService, setSelectedService] = useState(
-    initialServiceId || TRAINING_SERVICES[0].id,
+    initialServiceId || TRAINING_SERVICES[0]?.id || "",
   );
   const [date, setDate] = useState(() => {
     const tomorrow = new Date();
@@ -42,7 +42,7 @@ export function BookingModal({ isOpen, onClose, initialServiceId }: BookingModal
   if (!isOpen) return null;
 
   const currentService =
-    TRAINING_SERVICES.find((s) => s.id === selectedService) || TRAINING_SERVICES[0];
+    TRAINING_SERVICES.find((s) => s.id === selectedService) ?? TRAINING_SERVICES[0]!;
 
   const timeSlots = [
     "06:00 AM",

@@ -66,7 +66,7 @@ export function CommunityAndFounder({ onBookClick }: CommunityAndFounderProps) {
             {/* Coach Photo Placeholder */}
             <Reveal variant="left" className="lg:col-span-5 relative order-2 lg:order-1" as="div">
               <div className="relative aspect-3/4 rounded-sm overflow-hidden border border-border bg-secondary/70 flex flex-col items-center justify-center p-8 text-center">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(218,255,0,0.06)_0%,transparent_70%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(220,38,38,0.07)_0%,transparent_70%)]" />
 
                 <div className="relative z-10 max-w-xs space-y-4">
                   <div className="w-14 h-14 rounded-sm bg-background/80 border border-border flex items-center justify-center mx-auto text-volt shadow-lg">

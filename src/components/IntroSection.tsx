@@ -9,7 +9,7 @@ export function IntroSection() {
           {/* Left Visual Placeholder */}
           <Reveal variant="left" className="lg:col-span-6 relative" as="div">
             <div className="relative aspect-4/5 sm:aspect-square lg:aspect-4/5 w-full rounded-sm overflow-hidden border border-border bg-secondary/60 flex flex-col items-center justify-center p-8 text-center">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(218,255,0,0.06)_0%,transparent_70%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(220,38,38,0.07)_0%,transparent_70%)]" />
 
               <div className="relative z-10 max-w-sm space-y-4">
                 <div className="w-14 h-14 rounded-sm bg-background/80 border border-border flex items-center justify-center mx-auto text-volt shadow-lg">

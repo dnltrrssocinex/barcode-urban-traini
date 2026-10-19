@@ -57,9 +57,9 @@
   --popover: oklch(0.15 0.006 260);
   --popover-foreground: oklch(0.97 0 0);
 
-  /* Primary action: Industrial energetic safety amber/volt accent */
-  --primary: oklch(0.85 0.18 95); /* High-visibility volt yellow-amber, athletic energy */
-  --primary-foreground: oklch(0.1 0.01 260);
+  /* Primary action: Brand red — bold, athletic, high-energy */
+  --primary: oklch(0.58 0.23 27); /* Barcode brand red */
+  --primary-foreground: oklch(0.98 0 0); /* White on red for contrast */
 
   --secondary: oklch(0.22 0.01 260); /* Charcoal industrial */
   --secondary-foreground: oklch(0.95 0 0);
@@ -67,22 +67,22 @@
   --muted: oklch(0.2 0.007 260);
   --muted-foreground: oklch(0.68 0.01 260); /* Weathered steel gray */
 
-  --accent: oklch(0.85 0.18 95);
-  --accent-foreground: oklch(0.1 0.01 260);
+  --accent: oklch(0.58 0.23 27);
+  --accent-foreground: oklch(0.98 0 0);
 
   --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.98 0 0);
 
   --border: oklch(0.26 0.01 260); /* Subtle steel edge */
   --input: oklch(0.24 0.01 260);
-  --ring: oklch(0.85 0.18 95);
+  --ring: oklch(0.58 0.23 27);
 
   --concrete: oklch(0.28 0.01 260);
   --concrete-light: oklch(0.4 0.01 260);
   --concrete-dark: oklch(0.14 0.005 260);
   --steel: oklch(0.65 0.015 250);
-  --volt: oklch(0.85 0.18 95);
-  --volt-glow: oklch(0.85 0.18 95 / 0.25);
+  --volt: oklch(0.58 0.23 27); /* Brand red accent */
+  --volt-glow: oklch(0.58 0.23 27 / 0.25);
 }
 
 @layer base {
@@ -138,7 +138,7 @@
 }
 
 .text-stroke-gritty {
-  -webkit-text-stroke: 1px oklch(0.85 0.18 95 / 0.7);
+  -webkit-text-stroke: 1px oklch(0.58 0.23 27 / 0.7);
   color: transparent;
 }
 
