@@ -48,6 +48,9 @@ export function Navbar({ onOpenBooking, onOpenShop }: NavbarProps) {
             <span className="font-display text-2xl sm:text-3xl font-black tracking-wider text-foreground leading-none">
               BARCODE
             </span>
+            <span className="text-[9px] sm:text-[10px] font-athletic font-bold uppercase tracking-[0.3em] text-volt leading-none mt-1">
+              The Concrete Boutique
+            </span>
           </div>
         </a>
 
