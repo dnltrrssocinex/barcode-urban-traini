@@ -7,7 +7,7 @@ export const BARCODE_IMAGES = {
   heroVideoPoster:
     "https://vibe.filesafe.space/1790776132600168681/assets/1412fd34-b307-441c-85a6-a825b8be6e35.png",
   // Coach / founder training footage (plays cleanly, no filter or overlay)
-  coachVideo: "https://adilo.bigcommand.com/1cfc2275-74c4-4c67-b678-c8f77ef063e9.mp4",
+  coachVideo: "https://stream.adilo.com/adilo-encoding/AI6SSPPPZGRoOnEJ/KVsVMjq4/1080p-hdr.mp4",
 };
 
 export const TRAINING_SERVICES = [
