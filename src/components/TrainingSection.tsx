@@ -1,26 +1,10 @@
 import { Calendar } from "lucide-react";
 import { Reveal } from "./Reveal";
+import { TRAINING_SERVICES } from "../lib/data";
 
 interface TrainingSectionProps {
   onBookService: (serviceId: string) => void;
 }
-
-const BOOKING_CARDS = [
-  {
-    id: "personal-training",
-    title: "PERSONAL TRAINING",
-    type: "1-on-1 Coaching",
-    time: "60 Min Private",
-    highlight: "Full Custom Blueprint",
-  },
-  {
-    id: "small-group",
-    title: "GROUP TRAINING",
-    type: "Squad Session",
-    time: "50 Min High Adrenaline",
-    highlight: "Max 6 Lifters Per Coach",
-  },
-];
 
 export function TrainingSection({ onBookService }: TrainingSectionProps) {
   return (
@@ -47,28 +31,17 @@ export function TrainingSection({ onBookService }: TrainingSectionProps) {
             </Reveal>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {BOOKING_CARDS.map((card, i) => (
-              <Reveal key={card.id} variant="up" delay={i * 120} as="div" className="h-full">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {TRAINING_SERVICES.map((service, i) => (
+              <Reveal key={service.id} variant="up" delay={i * 120} as="div" className="h-full">
                 <div className="p-6 rounded-sm bg-card border border-border hover:border-volt flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
-                  <div>
-                    <span className="text-[10px] font-athletic font-bold uppercase tracking-widest text-volt">
-                      {card.type}
-                    </span>
-                    <h3 className="font-display text-2xl font-black text-foreground tracking-wide mt-1 mb-2">
-                      {card.title}
-                    </h3>
-                    <div className="text-xs text-muted-foreground font-medium mb-3">
-                      {card.time}
-                    </div>
-                    <div className="text-xs text-foreground/80 py-2 px-3 rounded-xs bg-secondary/60 border border-border/80">
-                      {card.highlight}
-                    </div>
-                  </div>
+                  <h3 className="font-display text-2xl font-black text-foreground tracking-wide">
+                    {service.name}
+                  </h3>
 
                   <div className="pt-6 mt-6 border-t border-border/60">
                     <button
-                      onClick={() => onBookService(card.id)}
+                      onClick={() => onBookService(service.id)}
                       className="w-full py-3 rounded-sm bg-volt text-primary-foreground font-athletic font-black text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-volt/20"
                     >
                       <Calendar className="w-3.5 h-3.5" />
