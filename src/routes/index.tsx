@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { listCatalogProducts } from "@/integrations/payments";
 import { Navbar } from "../components/Navbar";
 import { HeroSection } from "../components/HeroSection";
 import { ApparelSection } from "../components/ApparelSection";
@@ -11,22 +10,15 @@ import { BookingModal } from "../components/BookingModal";
 import { ShopModal } from "../components/ShopModal";
 import { MarqueeBand } from "../components/MarqueeBand";
 import { BARCODE_IMAGES } from "../lib/data";
-import { catalogToDisplay, fallbackProducts, type DisplayProduct } from "../lib/products";
+import { fallbackProducts, type DisplayProduct } from "../lib/products";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
-    // Try the live Payments catalog first; fall back to the featured products
-    // whenever the catalog is empty or unreachable (e.g. during prerender).
-    let products: DisplayProduct[] = fallbackProducts();
-    try {
-      const page = await listCatalogProducts({ limit: 24, offset: 0 });
-      if (page.products.length > 0) {
-        products = page.products.map(catalogToDisplay);
-      }
-    } catch {
-      /* catalog not configured / unreachable — keep featured fallback */
-    }
-    return { products };
+    // Locked to the curated featured products on the homepage so the
+    // grid never silently switches over to the live Payments catalog.
+    // To drive the grid from the catalog again, restore the
+    // listCatalogProducts call + catalogToDisplay mapping here.
+    return { products: fallbackProducts() };
   },
   head: () => ({
     meta: [
