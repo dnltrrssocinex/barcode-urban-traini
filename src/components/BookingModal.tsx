@@ -193,12 +193,8 @@ export function BookingModal({ isOpen, onClose, initialServiceId }: BookingModal
                           : "border-border bg-secondary/30 text-muted-foreground hover:border-border/80"
                       }`}
                     >
-                      <div className="flex justify-between items-center font-athletic font-bold text-sm tracking-wide text-foreground">
-                        <span>{service.name}</span>
-                        <span className="text-[11px] text-volt">{service.price}</span>
-                      </div>
-                      <div className="text-[11px] text-muted-foreground line-clamp-1 mt-0.5">
-                        {service.tagline}
+                      <div className="font-athletic font-bold text-sm tracking-wide text-foreground">
+                        {service.name}
                       </div>
                     </button>
                   ))}
