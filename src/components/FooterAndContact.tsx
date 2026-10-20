@@ -1,11 +1,11 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import {
   MapPin,
   Clock,
   ArrowRight,
   Instagram,
   Youtube,
-  Twitter,
   Calendar,
   User,
   Mail,
@@ -365,7 +365,7 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/_rawbuck/"
                 target="_blank"
                 rel="noreferrer"
                 className="w-8 h-8 rounded-sm bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:text-volt hover:border-volt transition-colors"
@@ -374,22 +374,13 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
                 <Instagram className="w-4 h-4" />
               </a>
               <a
-                href="https://youtube.com"
+                href="https://www.youtube.com/@rawbuck7026"
                 target="_blank"
                 rel="noreferrer"
                 className="w-8 h-8 rounded-sm bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:text-volt hover:border-volt transition-colors"
                 aria-label="YouTube"
               >
                 <Youtube className="w-4 h-4" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noreferrer"
-                className="w-8 h-8 rounded-sm bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:text-volt hover:border-volt transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -424,6 +415,14 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
                   Shop
                 </button>
               </li>
+              <li>
+                <Link
+                  to="/about"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  About
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -447,9 +446,6 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
             <div className="text-xs font-athletic uppercase font-bold tracking-widest text-volt mb-4">
               SCHEDULE
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed mb-4">
-              Lock in your personalized movement audit and baseline assessment.
-            </p>
             <button
               onClick={onBookClick}
               className="w-full py-3 rounded-sm bg-volt text-primary-foreground font-athletic font-black text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-volt/20"
