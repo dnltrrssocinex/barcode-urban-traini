@@ -389,12 +389,13 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
             </div>
             <ul className="space-y-2.5 text-xs font-athletic uppercase tracking-wider">
               <li>
-                <a
-                  href="#hero"
+                <Link
+                  to="/"
+                  hash="hero"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   HOME
-                </a>
+                </Link>
               </li>
               <li>
                 <button

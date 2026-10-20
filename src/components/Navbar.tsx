@@ -8,6 +8,8 @@ interface NavbarProps {
   onOpenShop: () => void;
 }
 
+type NavLink = { label: string; to: string; hash?: string };
+
 export function Navbar({ onOpenBooking, onOpenShop }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,13 +22,12 @@ export function Navbar({ onOpenBooking, onOpenShop }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  type NavLink = { label: string } & ({ href: string } | { to: "/about" });
   const navLinks: NavLink[] = [
-    { label: "HOME", href: "#hero" },
-    { label: "BOOK", href: "#booking" },
-    { label: "SHOP", href: "#shop" },
+    { label: "HOME", to: "/", hash: "hero" },
+    { label: "BOOK", to: "/", hash: "booking" },
+    { label: "SHOP", to: "/", hash: "shop" },
     { label: "ABOUT", to: "/about" },
-    { label: "CONTACT", href: "#contact" },
+    { label: "CONTACT", to: "/", hash: "contact" },
   ];
 
   return (
@@ -39,7 +40,7 @@ export function Navbar({ onOpenBooking, onOpenShop }: NavbarProps) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Brand Logo */}
-        <a href="#hero" className="flex items-center gap-3 group">
+        <Link to="/" className="flex items-center gap-3 group">
           <span className="font-display text-2xl sm:text-3xl font-black tracking-wider text-foreground leading-none">
             BARCODE
           </span>
@@ -48,30 +49,21 @@ export function Navbar({ onOpenBooking, onOpenShop }: NavbarProps) {
             alt="Barcode"
             className="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105 invert brightness-200"
           />
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
           <div className="flex items-center gap-6">
-            {navLinks.map((link) =>
-              "href" in link ? (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-xs uppercase font-athletic tracking-widest text-muted-foreground hover:text-volt transition-colors font-bold"
-                >
-                  {link.label}
-                </a>
-              ) : (
-                <Link
-                  key={link.label}
-                  to={link.to}
-                  className="text-xs uppercase font-athletic tracking-widest text-muted-foreground hover:text-volt transition-colors font-bold"
-                >
-                  {link.label}
-                </Link>
-              ),
-            )}
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                to={link.to}
+                {...(link.hash ? { hash: link.hash } : {})}
+                className="text-xs uppercase font-athletic tracking-widest text-muted-foreground hover:text-volt transition-colors font-bold"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
           <div className="h-5 w-px bg-border" />
@@ -118,27 +110,17 @@ export function Navbar({ onOpenBooking, onOpenShop }: NavbarProps) {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-card/98 border-b border-border backdrop-blur-xl px-4 pt-4 pb-6 space-y-4">
           <nav className="flex flex-col space-y-3">
-            {navLinks.map((link) =>
-              "href" in link ? (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm uppercase font-athletic tracking-widest text-foreground hover:text-volt font-bold py-2 border-b border-border/40"
-                >
-                  {link.label}
-                </a>
-              ) : (
-                <Link
-                  key={link.label}
-                  to={link.to}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm uppercase font-athletic tracking-widest text-foreground hover:text-volt font-bold py-2 border-b border-border/40"
-                >
-                  {link.label}
-                </Link>
-              ),
-            )}
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                to={link.to}
+                {...(link.hash ? { hash: link.hash } : {})}
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm uppercase font-athletic tracking-widest text-foreground hover:text-volt font-bold py-2 border-b border-border/40"
+              >
+                {link.label}
+              </Link>
+            ))}
           </nav>
           <div className="grid grid-cols-2 gap-3 pt-2">
             <button
