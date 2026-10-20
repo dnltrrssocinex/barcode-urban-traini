@@ -1,41 +1,57 @@
-import { useState } from "react";
-import { X, ShoppingBag, Check, ShieldCheck, ArrowRight } from "lucide-react";
-import { APPAREL_PRODUCTS, BARCODE_IMAGES } from "../lib/data";
+import { useEffect, useState } from "react";
+import { X, ShoppingBag, ArrowRight, ExternalLink } from "lucide-react";
+import { PaymentCheckoutBlock, isCheckoutReturn } from "@/integrations/payments";
+import { BARCODE_IMAGES } from "../lib/data";
+import { SHOP_URL, persistCheckoutSelection, type DisplayProduct } from "../lib/products";
 
 interface ShopModalProps {
   isOpen: boolean;
   onClose: () => void;
+  products: DisplayProduct[];
   selectedProductId?: string | undefined;
 }
 
-export function ShopModal({ isOpen, onClose, selectedProductId }: ShopModalProps) {
-  const [selectedProduct, setSelectedProduct] = useState(
-    selectedProductId || APPAREL_PRODUCTS[0]?.id || "",
-  );
-  const [selectedSize, setSelectedSize] = useState("L");
-  const [added, setAdded] = useState(false);
+export function ShopModal({ isOpen, onClose, products, selectedProductId }: ShopModalProps) {
+  const [ready, setReady] = useState(false);
+  const [mode, setMode] = useState<"selected" | "all">("selected");
+
+  const selected = selectedProductId ? products.find((p) => p.id === selectedProductId) : undefined;
+  const hasCatalog = products.some((p) => p.isCatalog);
+
+  // Persist the chosen product's price before mounting the hosted checkout,
+  // or open in "all" mode for Shop All / sold-out / payment-return loads.
+  useEffect(() => {
+    if (!isOpen) {
+      setReady(false);
+      return;
+    }
+    if (isCheckoutReturn()) {
+      setMode("all");
+      setReady(true);
+      return;
+    }
+    if (selected?.isCatalog && selected.priceId && !selected.soldOut) {
+      persistCheckoutSelection(selected.priceId);
+      setMode("selected");
+    } else {
+      setMode("all");
+    }
+    setReady(true);
+  }, [isOpen, selected]);
 
   if (!isOpen) return null;
 
-  const currentItem =
-    APPAREL_PRODUCTS.find((p) => p.id === selectedProduct) ??
-    (APPAREL_PRODUCTS[0] as (typeof APPAREL_PRODUCTS)[number]);
-
-  const handleCheckoutRedirect = () => {
-    setAdded(true);
-    setTimeout(() => {
-      setAdded(false);
-      onClose();
-    }, 1500);
-  };
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/85 backdrop-blur-md animate-in fade-in duration-200">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/85 backdrop-blur-md animate-in fade-in duration-200"
+      onClick={onClose}
+    >
       <div
-        className="relative w-full max-w-2xl bg-card border border-border shadow-2xl rounded-sm max-h-[92vh] flex flex-col overflow-hidden"
+        className="relative w-full max-w-5xl bg-card border border-border shadow-2xl rounded-sm max-h-[92vh] flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-secondary/40">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-secondary/40 shrink-0">
           <div className="flex items-center gap-3">
             <img
               src={BARCODE_IMAGES.logo}
@@ -48,119 +64,127 @@ export function ShopModal({ isOpen, onClose, selectedProductId }: ShopModalProps
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-secondary rounded transition-colors"
+            className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-secondary rounded transition-colors cursor-pointer"
+            aria-label="Close"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="p-6 overflow-y-auto space-y-6">
-          {/* Product Selector Ribbon */}
-          <div className="grid grid-cols-4 gap-2">
-            {APPAREL_PRODUCTS.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => setSelectedProduct(item.id)}
-                className={`p-2 rounded-sm border text-left transition-all ${
-                  item.id === currentItem.id
-                    ? "border-volt bg-secondary"
-                    : "border-border bg-card/60 hover:border-border/80"
-                }`}
-              >
-                <div className="aspect-square bg-secondary/80 rounded-xs overflow-hidden mb-1">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-cover object-center"
-                  />
-                </div>
-                <div className="text-[10px] font-athletic uppercase font-bold text-foreground truncate">
-                  {item.name.replace("BARCODE ", "")}
-                </div>
-                <div className="text-[9px] text-volt font-bold">{item.price}</div>
-              </button>
-            ))}
-          </div>
+        {/* Body */}
+        <div className="p-6 overflow-y-auto">
+          {hasCatalog ? (
+            ready ? (
+              <PaymentCheckoutBlock
+                key={`${mode}-${selectedProductId ?? "all"}`}
+                checkoutMode={mode}
+                onSuccess={() => onClose()}
+              />
+            ) : (
+              <div className="py-16 text-center text-muted-foreground text-sm font-athletic uppercase tracking-widest">
+                Loading checkout…
+              </div>
+            )
+          ) : (
+            <FallbackStoreView products={products} selected={selected} />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
-          <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
-            {/* Left Product Image */}
-            <div className="sm:col-span-6 aspect-square rounded-sm bg-secondary/80 border border-border overflow-hidden relative">
+/** Shown only while the live catalog is empty — routes buyers to the external store. */
+function FallbackStoreView({
+  products,
+  selected,
+}: {
+  products: DisplayProduct[];
+  selected?: DisplayProduct | undefined;
+}) {
+  const featured = selected ?? products[0];
+  return (
+    <div className="space-y-8">
+      {featured && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center">
+          <div className="aspect-square rounded-sm bg-secondary/80 border border-border overflow-hidden">
+            {featured.image ? (
               <img
-                src={currentItem.image}
-                alt={currentItem.name}
+                src={featured.image}
+                alt={featured.name}
                 className="w-full h-full object-cover object-center"
               />
-              <span className="absolute top-3 left-3 bg-background/90 backdrop-blur-xs text-volt text-[10px] font-athletic font-black uppercase tracking-wider px-2 py-0.5 border border-border z-10">
-                {currentItem.status}
-              </span>
-            </div>
-
-            {/* Right Details */}
-            <div className="sm:col-span-6 space-y-4">
-              <div>
-                <span className="inline-block text-[10px] font-athletic uppercase tracking-widest text-volt font-bold bg-secondary px-2 py-0.5 border border-border mb-2">
-                  {currentItem.status}
-                </span>
-                <h3 className="font-display text-2xl font-black text-foreground tracking-wide">
-                  {currentItem.name}
-                </h3>
-                <p className="text-xs text-muted-foreground mt-1">{currentItem.subtitle}</p>
-                <div className="font-athletic text-2xl font-black text-volt mt-2">
-                  {currentItem.price}
-                </div>
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-muted-foreground/40">
+                <ShoppingBag className="w-12 h-12" />
               </div>
-
-              {/* Size Select */}
-              <div>
-                <label className="block text-[11px] uppercase font-athletic tracking-widest font-bold text-muted-foreground mb-2">
-                  SELECT SIZE
-                </label>
-                <div className="flex gap-2">
-                  {["S", "M", "L", "XL", "2XL"].map((sz) => (
-                    <button
-                      key={sz}
-                      type="button"
-                      onClick={() => setSelectedSize(sz)}
-                      className={`w-10 h-10 rounded-sm font-athletic font-black text-xs transition-all ${
-                        selectedSize === sz
-                          ? "bg-volt text-primary-foreground shadow-md shadow-volt/20"
-                          : "bg-secondary text-foreground hover:bg-secondary/80 border border-border"
-                      }`}
-                    >
-                      {sz}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="text-xs text-muted-foreground pt-1 border-t border-border/60">
-                {currentItem.details}
-              </div>
-
-              <button
-                onClick={handleCheckoutRedirect}
-                className="w-full py-3.5 rounded-sm bg-volt text-primary-foreground font-athletic font-black text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-volt/20"
-              >
-                {added ? (
-                  <>
-                    <Check className="w-4 h-4" />
-                    <span>ITEM ADDED TO CART</span>
-                  </>
-                ) : (
-                  <>
-                    <ShoppingBag className="w-4 h-4" />
-                    <span>ADD TO BAG & PROCEED TO CHECKOUT</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
-              </button>
-
-              <div className="flex items-center justify-center gap-2 text-[10px] uppercase font-athletic tracking-wider text-muted-foreground">
-                <ShieldCheck className="w-3.5 h-3.5 text-volt" />
-                <span>Heavyweight French Terry Cotton | Free Size Exchange</span>
-              </div>
-            </div>
+            )}
           </div>
+          <div className="space-y-4">
+            <span className="inline-block text-[10px] font-athletic uppercase tracking-widest text-volt font-bold bg-secondary px-2 py-0.5 border border-border">
+              {featured.status}
+            </span>
+            <h3 className="font-display text-2xl font-black text-foreground tracking-wide">
+              {featured.name}
+            </h3>
+            <p className="text-sm text-muted-foreground">{featured.subtitle}</p>
+            <div className="font-athletic text-2xl font-black text-volt">{featured.price}</div>
+            <a
+              href={SHOP_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-sm bg-volt text-primary-foreground font-athletic font-black text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-volt/20"
+            >
+              <ShoppingBag className="w-4 h-4" />
+              <span>VISIT STORE</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      )}
+
+      <div className="pt-6 border-t border-border/60">
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-[10px] font-athletic uppercase tracking-widest text-muted-foreground font-bold">
+            FEATURED COLLECTION
+          </span>
+          <a
+            href={SHOP_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs font-athletic font-bold uppercase tracking-wider text-volt hover:brightness-110"
+          >
+            SHOP ALL BARCODE
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {products.map((p) => (
+            <a
+              key={p.id}
+              href={SHOP_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="group rounded-sm border border-border bg-card overflow-hidden hover:border-volt/80 transition-all"
+            >
+              <div className="aspect-square bg-secondary/60 overflow-hidden">
+                {p.image && (
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  />
+                )}
+              </div>
+              <div className="p-2">
+                <div className="text-[10px] font-athletic font-bold uppercase text-foreground truncate">
+                  {p.name}
+                </div>
+                <div className="text-[10px] text-volt font-bold">{p.price}</div>
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </div>

@@ -1,12 +1,13 @@
 import { ShoppingBag, ArrowRight } from "lucide-react";
-import { APPAREL_PRODUCTS } from "../lib/data";
 import { Reveal } from "./Reveal";
+import type { DisplayProduct } from "../lib/products";
 
 interface ApparelSectionProps {
+  products: DisplayProduct[];
   onOpenProduct: (productId?: string) => void;
 }
 
-export function ApparelSection({ onOpenProduct }: ApparelSectionProps) {
+export function ApparelSection({ products, onOpenProduct }: ApparelSectionProps) {
   return (
     <section id="shop" className="py-24 bg-card/40 relative border-y border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,19 +35,26 @@ export function ApparelSection({ onOpenProduct }: ApparelSectionProps) {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {APPAREL_PRODUCTS.map((prod, i) => (
+          {products.map((prod, i) => (
             <Reveal key={prod.id} variant="up" delay={i * 100} as="div" className="h-full">
               <div className="group rounded-sm bg-card border border-border overflow-hidden hover:border-volt/80 transition-all duration-300 flex flex-col justify-between h-full">
                 {/* Product Image */}
                 <div
                   className="aspect-square bg-secondary/50 relative overflow-hidden cursor-pointer"
-                  onClick={() => onOpenProduct(prod.id)}
+                  onClick={() => !prod.soldOut && onOpenProduct(prod.id)}
                 >
-                  <img
-                    src={prod.image}
-                    alt={prod.name}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  />
+                  {prod.image ? (
+                    <img
+                      src={prod.image}
+                      alt={prod.name}
+                      loading="lazy"
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground/40">
+                      <ShoppingBag className="w-10 h-10" />
+                    </div>
+                  )}
                   <span className="absolute top-3 left-3 bg-background/90 backdrop-blur-xs text-volt text-[10px] font-athletic font-black uppercase tracking-wider px-2 py-0.5 border border-border z-10">
                     {prod.status}
                   </span>
@@ -56,7 +64,7 @@ export function ApparelSection({ onOpenProduct }: ApparelSectionProps) {
                   <div>
                     <h3
                       className="font-display text-xl font-black text-foreground tracking-wide group-hover:text-volt transition-colors cursor-pointer"
-                      onClick={() => onOpenProduct(prod.id)}
+                      onClick={() => !prod.soldOut && onOpenProduct(prod.id)}
                     >
                       {prod.name}
                     </h3>
@@ -70,11 +78,12 @@ export function ApparelSection({ onOpenProduct }: ApparelSectionProps) {
                       {prod.price}
                     </span>
                     <button
-                      onClick={() => onOpenProduct(prod.id)}
-                      className="px-3.5 py-1.5 rounded-sm border border-border hover:border-volt bg-secondary hover:bg-secondary/80 text-foreground font-athletic text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer"
+                      onClick={() => !prod.soldOut && onOpenProduct(prod.id)}
+                      disabled={prod.soldOut}
+                      className="px-3.5 py-1.5 rounded-sm border border-border hover:border-volt bg-secondary hover:bg-secondary/80 text-foreground font-athletic text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       <ShoppingBag className="w-3.5 h-3.5 text-volt" />
-                      <span>SHOP</span>
+                      <span>{prod.soldOut ? "SOLD OUT" : "SHOP"}</span>
                     </button>
                   </div>
                 </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { listCatalogProducts } from "@/integrations/payments";
 import { Navbar } from "../components/Navbar";
 import { HeroSection } from "../components/HeroSection";
 import { ApparelSection } from "../components/ApparelSection";
@@ -10,21 +11,36 @@ import { BookingModal } from "../components/BookingModal";
 import { ShopModal } from "../components/ShopModal";
 import { MarqueeBand } from "../components/MarqueeBand";
 import { BARCODE_IMAGES } from "../lib/data";
+import { catalogToDisplay, fallbackProducts, type DisplayProduct } from "../lib/products";
 
 export const Route = createFileRoute("/")({
+  loader: async () => {
+    // Try the live Payments catalog first; fall back to the featured products
+    // whenever the catalog is empty or unreachable (e.g. during prerender).
+    let products: DisplayProduct[] = fallbackProducts();
+    try {
+      const page = await listCatalogProducts({ limit: 24, offset: 0 });
+      if (page.products.length > 0) {
+        products = page.products.map(catalogToDisplay);
+      }
+    } catch {
+      /* catalog not configured / unreachable — keep featured fallback */
+    }
+    return { products };
+  },
   head: () => ({
     meta: [
-      { title: "BARCODE — Urban Gym & Athletic Apparel" },
+      { title: "BARCODE — Gym & Athletic Apparel" },
       {
         name: "description",
         content:
-          "Barcode is an urban training compound engineered for real movement, strength, performance, and street athletic culture. Book your session or shop the collection.",
+          "Barcode is a training experience built for people who are determined to raise the bar. Book your session or shop the collection.",
       },
-      { property: "og:title", content: "BARCODE — Urban Gym & Athletic Apparel" },
+      { property: "og:title", content: "BARCODE — Gym & Athletic Apparel" },
       {
         property: "og:description",
         content:
-          "Urban training compound built for people who want to move stronger, train harder, and become more capable.",
+          "Barcode is a training experience built for people who are determined to raise the bar.",
       },
       { property: "og:type", content: "website" },
       { property: "og:image", content: BARCODE_IMAGES.logo },
@@ -36,6 +52,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const { products } = Route.useLoaderData();
   const [bookingOpen, setBookingOpen] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState<string | undefined>();
   const [shopOpen, setShopOpen] = useState(false);
@@ -66,7 +83,7 @@ function Index() {
       <MarqueeBand />
 
       {/* Apparel and Gear moved above Training Services as requested */}
-      <ApparelSection onOpenProduct={(id) => openShopWithProduct(id)} />
+      <ApparelSection products={products} onOpenProduct={(id) => openShopWithProduct(id)} />
 
       <TrainingSection onBookService={(id) => openBookingWithService(id)} />
 
@@ -88,6 +105,7 @@ function Index() {
       <ShopModal
         isOpen={shopOpen}
         onClose={() => setShopOpen(false)}
+        products={products}
         selectedProductId={selectedProductId === undefined ? undefined : selectedProductId}
       />
     </div>
