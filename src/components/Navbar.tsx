@@ -21,7 +21,6 @@ export function Navbar({ onOpenBooking, onOpenShop }: NavbarProps) {
 
   const navLinks = [
     { label: "Home", href: "#hero" },
-    { label: "Training", href: "#training" },
     { label: "Book", href: "#booking" },
     { label: "Shop", href: "#shop" },
     { label: "About", href: "#about" },
