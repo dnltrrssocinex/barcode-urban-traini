@@ -360,9 +360,6 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
                 className="h-9 w-auto object-contain invert brightness-200"
               />
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed max-w-xs">
-              Training compound engineered for movement, power, and discipline.
-            </p>
             <div className="flex items-center gap-3 pt-2">
               <a
                 href="https://www.instagram.com/_rawbuck/"
