@@ -396,7 +396,7 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
                   href="#hero"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Home
+                  HOME
                 </a>
               </li>
               <li>
@@ -404,7 +404,7 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
                   onClick={onBookClick}
                   className="text-muted-foreground hover:text-foreground transition-colors text-left"
                 >
-                  Book
+                  BOOK
                 </button>
               </li>
               <li>
@@ -412,7 +412,7 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
                   onClick={onShopClick}
                   className="text-muted-foreground hover:text-foreground transition-colors text-left"
                 >
-                  Shop
+                  SHOP
                 </button>
               </li>
               <li>
@@ -420,7 +420,7 @@ export function Footer({ onBookClick, onShopClick }: FooterProps) {
                   to="/about"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  About
+                  ABOUT
                 </Link>
               </li>
             </ul>

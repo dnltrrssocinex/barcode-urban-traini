@@ -22,11 +22,11 @@ export function Navbar({ onOpenBooking, onOpenShop }: NavbarProps) {
 
   type NavLink = { label: string } & ({ href: string } | { to: "/about" });
   const navLinks: NavLink[] = [
-    { label: "Home", href: "#hero" },
-    { label: "Book", href: "#booking" },
-    { label: "Shop", href: "#shop" },
-    { label: "About", to: "/about" },
-    { label: "Contact", href: "#contact" },
+    { label: "HOME", href: "#hero" },
+    { label: "BOOK", href: "#booking" },
+    { label: "SHOP", href: "#shop" },
+    { label: "ABOUT", to: "/about" },
+    { label: "CONTACT", href: "#contact" },
   ];
 
   return (
