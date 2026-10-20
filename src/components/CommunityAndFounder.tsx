@@ -1,4 +1,4 @@
-import { Calendar } from "lucide-react";
+import { Calendar, ArrowRight } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { BARCODE_IMAGES } from "../lib/data";
 
@@ -76,6 +76,13 @@ export function CommunityAndFounder({ onBookClick }: CommunityAndFounderProps) {
                   <Calendar className="w-4 h-4" />
                   <span>TRAIN WITH ME</span>
                 </button>
+                <a
+                  href="/about"
+                  className="px-8 py-4 rounded-sm border border-border hover:border-volt/80 bg-secondary/70 hover:bg-secondary text-foreground font-athletic font-bold text-sm uppercase tracking-widest flex items-center gap-2.5 active:scale-95 transition-all cursor-pointer"
+                >
+                  <span>ABOUT BARCODE</span>
+                  <ArrowRight className="w-4 h-4 text-volt" />
+                </a>
               </Reveal>
             </div>
           </div>
