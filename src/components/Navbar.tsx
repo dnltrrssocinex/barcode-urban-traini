@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Calendar, ShoppingBag } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { BARCODE_IMAGES } from "../lib/data";
 
 interface NavbarProps {
@@ -19,11 +20,12 @@ export function Navbar({ onOpenBooking, onOpenShop }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
+  type NavLink = { label: string } & ({ href: string } | { to: "/about" });
+  const navLinks: NavLink[] = [
     { label: "Home", href: "#hero" },
     { label: "Book", href: "#booking" },
     { label: "Shop", href: "#shop" },
-    { label: "About", href: "#about" },
+    { label: "About", to: "/about" },
     { label: "Contact", href: "#contact" },
   ];
 
@@ -51,15 +53,25 @@ export function Navbar({ onOpenBooking, onOpenShop }: NavbarProps) {
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
           <div className="flex items-center gap-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-xs uppercase font-athletic tracking-widest text-muted-foreground hover:text-volt transition-colors font-bold"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              "href" in link ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-xs uppercase font-athletic tracking-widest text-muted-foreground hover:text-volt transition-colors font-bold"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  className="text-xs uppercase font-athletic tracking-widest text-muted-foreground hover:text-volt transition-colors font-bold"
+                >
+                  {link.label}
+                </Link>
+              ),
+            )}
           </div>
 
           <div className="h-5 w-px bg-border" />
@@ -106,16 +118,27 @@ export function Navbar({ onOpenBooking, onOpenShop }: NavbarProps) {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-card/98 border-b border-border backdrop-blur-xl px-4 pt-4 pb-6 space-y-4">
           <nav className="flex flex-col space-y-3">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm uppercase font-athletic tracking-widest text-foreground hover:text-volt font-bold py-2 border-b border-border/40"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              "href" in link ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm uppercase font-athletic tracking-widest text-foreground hover:text-volt font-bold py-2 border-b border-border/40"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm uppercase font-athletic tracking-widest text-foreground hover:text-volt font-bold py-2 border-b border-border/40"
+                >
+                  {link.label}
+                </Link>
+              ),
+            )}
           </nav>
           <div className="grid grid-cols-2 gap-3 pt-2">
             <button
