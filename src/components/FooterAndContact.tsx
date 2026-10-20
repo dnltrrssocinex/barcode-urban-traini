@@ -1,5 +1,22 @@
-import { MapPin, Clock, ArrowRight, Instagram, Youtube, Twitter, Calendar } from "lucide-react";
+import { useState } from "react";
+import {
+  MapPin,
+  Clock,
+  ArrowRight,
+  Instagram,
+  Youtube,
+  Twitter,
+  Calendar,
+  User,
+  Mail,
+  Phone,
+  MessageSquare,
+  Send,
+  CheckCircle,
+  Loader2,
+} from "lucide-react";
 import { GYM_DETAILS, BARCODE_IMAGES } from "../lib/data";
+import { postTrackingEvent, CRM_CONFIG } from "../lib/tracking";
 import { Reveal } from "./Reveal";
 
 interface ContactSectionProps {
@@ -7,6 +24,73 @@ interface ContactSectionProps {
 }
 
 export function ContactSection({ onBookClick }: ContactSectionProps) {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleField =
+    (key: keyof typeof formData) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setFormData((prev) => ({ ...prev, [key]: e.target.value }));
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    postTrackingEvent(
+      {
+        type: "external_form_submission",
+        timestamp: Date.now(),
+        formId: "barcode-contact-inquiry",
+        formData: {
+          full_name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          calendar_notes: formData.message || "General inquiry — no message provided.",
+        },
+        formLabels: {
+          full_name: "Full Name",
+          email: "Email Address",
+          phone: "Phone Number",
+          calendar_notes: "Message",
+        },
+        url: window.location.href,
+        title: document.title,
+        path: window.location.pathname,
+        userAgent: navigator.userAgent,
+        trackingId: CRM_CONFIG.trackingId,
+        locationId: CRM_CONFIG.locationId,
+        projectId: CRM_CONFIG.projectId,
+        sessionId: crypto.randomUUID(),
+        properties: {
+          deviceType: /Mobile|Android|iPhone/i.test(navigator.userAgent) ? "mobile" : "desktop",
+          source: "ai_studio",
+          projectId: CRM_CONFIG.projectId,
+          formName: "Barcode Contact Inquiry",
+        },
+      },
+      {
+        customFields: {
+          [CRM_CONFIG.customFields.interestAreas]: {
+            value: formData.message || "Contact form submission",
+            label: "Interest Areas",
+          },
+        },
+      },
+    );
+
+    window.setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      setFormData({ fullName: "", email: "", phone: "", message: "" });
+    }, 600);
+  };
+
   return (
     <>
       {/* Full-width dramatic CTA Banner */}
@@ -125,7 +209,7 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
               </div>
             </div>
 
-            {/* Native Form Embed Column */}
+            {/* Native Contact Form Column */}
             <div className="lg:col-span-7">
               <div className="p-6 sm:p-8 rounded-sm bg-card border border-border shadow-xl">
                 <div className="mb-6">
@@ -136,36 +220,122 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
                     START THE CONVERSATION
                   </h3>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Have questions about membership, programming, or drop-ins? Send us a direct
-                    inquiry.
+                    Questions about programming, drop-ins, or getting started? Send us a direct
+                    message.
                   </p>
                 </div>
 
-                <div
-                  className="w-full overflow-hidden rounded-sm bg-secondary/30 border border-border/60"
-                  style={{ minHeight: 879 }}
-                >
-                  <iframe
-                    src="https://mylinks.businesstechlab.com/widget/form/NSRrO1bfeBiBEDc0FnMB"
-                    style={{ width: "100%", height: "100%", border: "none", borderRadius: 4 }}
-                    id="inline-NSRrO1bfeBiBEDc0FnMB"
-                    data-layout='{"id":"INLINE"}'
-                    data-trigger-type="alwaysShow"
-                    data-trigger-value=""
-                    data-activation-type="alwaysActivated"
-                    data-activation-value=""
-                    data-deactivation-type="neverDeactivate"
-                    data-deactivation-value=""
-                    data-form-name="Contact Us"
-                    data-height="879"
-                    data-layout-iframe-id="inline-NSRrO1bfeBiBEDc0FnMB"
-                    data-form-id="NSRrO1bfeBiBEDc0FnMB"
-                    data-cookie-consent="true"
-                    data-cookie-consent-provider="auto"
-                    title="Contact Us"
-                    className="w-full"
-                  />
-                </div>
+                {isSuccess ? (
+                  <div className="py-12 text-center space-y-4">
+                    <div className="w-16 h-16 rounded-full bg-volt/20 text-volt mx-auto flex items-center justify-center border border-volt/40">
+                      <CheckCircle className="w-9 h-9" />
+                    </div>
+                    <h4 className="font-display text-2xl font-black tracking-wide text-foreground">
+                      MESSAGE RECEIVED
+                    </h4>
+                    <p className="text-muted-foreground max-w-sm mx-auto text-sm leading-relaxed">
+                      Thanks for reaching out. We'll get back to you shortly.
+                    </p>
+                    <button
+                      onClick={() => setIsSuccess(false)}
+                      className="mt-2 px-6 py-3 rounded-sm border border-border hover:border-volt text-foreground font-athletic font-bold text-xs uppercase tracking-widest hover:bg-secondary/60 transition-all cursor-pointer"
+                    >
+                      SEND ANOTHER MESSAGE
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    {/* Full Name */}
+                    <div>
+                      <label className="block text-xs uppercase font-athletic tracking-widest font-bold text-muted-foreground mb-2">
+                        NAME <span className="text-volt">*</span>
+                      </label>
+                      <div className="relative">
+                        <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/70 pointer-events-none" />
+                        <input
+                          type="text"
+                          required
+                          value={formData.fullName}
+                          onChange={handleField("fullName")}
+                          placeholder="First & last name"
+                          className="w-full pl-10 pr-3 py-2.5 rounded-sm bg-secondary/60 border border-border text-foreground text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:border-volt transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Email + Phone grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className="block text-xs uppercase font-athletic tracking-widest font-bold text-muted-foreground mb-2">
+                          EMAIL <span className="text-volt">*</span>
+                        </label>
+                        <div className="relative">
+                          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/70 pointer-events-none" />
+                          <input
+                            type="email"
+                            required
+                            value={formData.email}
+                            onChange={handleField("email")}
+                            placeholder="you@email.com"
+                            className="w-full pl-10 pr-3 py-2.5 rounded-sm bg-secondary/60 border border-border text-foreground text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:border-volt transition-colors"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block text-xs uppercase font-athletic tracking-widest font-bold text-muted-foreground mb-2">
+                          PHONE <span className="text-volt">*</span>
+                        </label>
+                        <div className="relative">
+                          <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/70 pointer-events-none" />
+                          <input
+                            type="tel"
+                            required
+                            value={formData.phone}
+                            onChange={handleField("phone")}
+                            placeholder="(215) 000-0000"
+                            className="w-full pl-10 pr-3 py-2.5 rounded-sm bg-secondary/60 border border-border text-foreground text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:border-volt transition-colors"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Message */}
+                    <div>
+                      <label className="block text-xs uppercase font-athletic tracking-widest font-bold text-muted-foreground mb-2">
+                        MESSAGE
+                      </label>
+                      <div className="relative">
+                        <MessageSquare className="absolute left-3 top-3.5 w-4 h-4 text-muted-foreground/70 pointer-events-none" />
+                        <textarea
+                          rows={4}
+                          value={formData.message}
+                          onChange={handleField("message")}
+                          placeholder="What are you interested in? Goals, availability, or anything we should know."
+                          className="w-full pl-10 pr-3 py-2.5 rounded-sm bg-secondary/60 border border-border text-foreground text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:border-volt transition-colors resize-none"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Submit */}
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full py-3.5 rounded-sm bg-volt text-primary-foreground font-athletic font-black text-sm uppercase tracking-widest hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer shadow-lg shadow-volt/20"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>SENDING...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4" />
+                          <span>SEND MESSAGE</span>
+                        </>
+                      )}
+                    </button>
+                  </form>
+                )}
               </div>
             </div>
           </div>
