@@ -85,9 +85,9 @@ export function BookingModal({ isOpen, onClose, initialServiceId }: BookingModal
             value: serviceName,
             label: "Preferred Training Service",
           },
-          [CRM_CONFIG.customFields.interestAreas]: {
+          [CRM_CONFIG.customFields.goalsAvailability]: {
             value: formData.message || "Session booking request",
-            label: "Interest Areas",
+            label: "Goals, Availability & Message",
           },
         },
       },

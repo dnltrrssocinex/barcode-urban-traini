@@ -76,9 +76,9 @@ export function ContactSection({ onBookClick }: ContactSectionProps) {
       },
       {
         customFields: {
-          [CRM_CONFIG.customFields.interestAreas]: {
+          [CRM_CONFIG.customFields.goalsAvailability]: {
             value: formData.message || "Contact form submission",
-            label: "Interest Areas",
+            label: "Goals, Availability & Message",
           },
         },
       },

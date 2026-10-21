@@ -76,6 +76,8 @@ export const CRM_CONFIG = {
   projectId: "1790776132600168681",
   customFields: {
     preferredService: "KtoC2bhmBlifjttTrLZZ",
+    // Registered to match the [[GOALS_AND_AVAILABILITY]] automation token.
+    goalsAvailability: "2l5eRKT8KQcb2v9OmaxS",
     interestAreas: "lxBiSEE5d84RLPLvIRlz",
   },
 };
