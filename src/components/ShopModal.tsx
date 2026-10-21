@@ -103,6 +103,7 @@ function FallbackStoreView({
   selected?: DisplayProduct | undefined;
 }) {
   const featured = selected ?? products[0];
+  const featuredUrl = featured?.storeUrl ?? SHOP_URL;
   return (
     <div className="space-y-8">
       {featured && (
@@ -128,9 +129,14 @@ function FallbackStoreView({
               {featured.name}
             </h3>
             <p className="text-sm text-muted-foreground">{featured.subtitle}</p>
+            {featured.description && (
+              <p className="text-sm text-muted-foreground/90 leading-relaxed">
+                {featured.description}
+              </p>
+            )}
             <div className="font-athletic text-2xl font-black text-volt">{featured.price}</div>
             <a
-              href={SHOP_URL}
+              href={featuredUrl}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-sm bg-volt text-primary-foreground font-athletic font-black text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-volt/20"
@@ -162,7 +168,7 @@ function FallbackStoreView({
           {products.map((p) => (
             <a
               key={p.id}
-              href={SHOP_URL}
+              href={p.storeUrl ?? SHOP_URL}
               target="_blank"
               rel="noreferrer"
               className="group rounded-sm border border-border bg-card overflow-hidden hover:border-volt/80 transition-all"

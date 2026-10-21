@@ -14,6 +14,10 @@ export interface DisplayProduct {
   /** Catalog products carry the priceId used to seed hosted checkout. */
   priceId?: string | undefined;
   soldOut?: boolean | undefined;
+  /** Direct link to this product's page on the external store. */
+  storeUrl?: string | undefined;
+  /** Full product description shown in the product detail modal. */
+  description?: string | undefined;
 }
 
 /** External GoHighLevel storefront, used as a fallback when the catalog is empty. */
@@ -75,6 +79,8 @@ export function fallbackProducts(): DisplayProduct[] {
     image: p.image,
     status: p.status,
     isCatalog: false,
+    storeUrl: p.storeUrl,
+    description: p.details,
   }));
 }
 
